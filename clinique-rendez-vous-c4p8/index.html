@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Clinique — prototype rendez-vous et paiement</title>
+<style>
+:root{--ink:#14202b;--mute:#5d6b78;--line:#e3e8ee;--bg:#f3f6f9;--card:#fff;--brand:#0f4c5c;--brand2:#e36414;--ok:#1f8a5b;--warn:#c27c0e;--bad:#c0392b}
+*{box-sizing:border-box}html,body{margin:0}body{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#dfe6ec;color:var(--ink);font-size:15px}
+.app{max-width:440px;margin:0 auto;min-height:100vh;background:var(--bg);display:flex;flex-direction:column;position:relative}
+header{background:var(--brand);color:#fff;padding:16px 18px 18px}
+header .top{display:flex;justify-content:space-between;align-items:center;font-size:12px;opacity:.9}
+header h1{font-size:19px;margin:8px 0 2px;line-height:1.2}header p{margin:0;font-size:13px;opacity:.85}
+.badge{background:rgba(255,255,255,.18);border-radius:20px;padding:3px 9px;font-size:11px;font-weight:600}
+main{flex:1;padding:14px 14px 90px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+.card h2{font-size:15px;margin:0 0 10px}.muted{color:var(--mute);font-size:13px}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px}.kpi b{display:block;font-size:20px;margin-top:4px}.kpi small{color:var(--mute);font-size:12px}
+.bar{height:8px;background:#e9eef3;border-radius:6px;overflow:hidden;margin:6px 0 2px}.bar i{display:block;height:100%;background:var(--brand2)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}.row:last-child{border-bottom:0}
+.row .t{font-weight:600;font-size:14px}.row .s{color:var(--mute);font-size:12px}
+.pill{font-size:11px;font-weight:700;border-radius:20px;padding:3px 8px;white-space:nowrap}.p-ok{background:#e3f4ec;color:var(--ok)}.p-warn{background:#fdf1dc;color:var(--warn)}.p-bad{background:#fbe5e2;color:var(--bad)}.p-info{background:#e5eef8;color:#2a5d9b}
+button,.btn{font:inherit;border:0;border-radius:12px;padding:12px 14px;font-weight:700;cursor:pointer;width:100%}
+.btn-p{background:var(--brand2);color:#fff}.btn-s{background:#eef2f6;color:var(--ink)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 12px}.chip{border:1px solid var(--line);background:#fff;border-radius:20px;padding:7px 12px;font-size:13px;cursor:pointer}.chip.on{border-color:var(--brand2);background:var(--brand2);color:#fff}
+input,select{font:inherit;width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;margin:4px 0 10px}
+label{font-size:12px;color:var(--mute);font-weight:600}
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:440px;background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);padding:6px 4px 10px}
+nav button{background:none;padding:6px 2px;font-size:11px;font-weight:600;color:var(--mute);border-radius:8px}nav button span{display:block;font-size:19px;line-height:1.3}nav button.on{color:var(--brand2)}
+.pay{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0 12px}.pay div{border:1px solid var(--line);border-radius:10px;padding:10px;text-align:center;font-size:13px;font-weight:600;cursor:pointer;background:#fff}.pay div.on{border-color:var(--brand2);box-shadow:0 0 0 2px var(--brand2) inset}
+.zola{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--mute);margin-top:8px}.zola b{color:#0a7a4d}
+.tl{border-left:2px solid var(--line);margin-left:6px;padding-left:14px}.tl div{position:relative;padding:0 0 12px}.tl div:before{content:"";position:absolute;left:-21px;top:3px;width:12px;height:12px;border-radius:50%;background:var(--line)}.tl div.d:before{background:var(--ok)}.tl div.c:before{background:var(--brand2);box-shadow:0 0 0 4px #fff,0 0 0 6px var(--brand2)}
+.qr{width:96px;height:96px;background:repeating-conic-gradient(#14202b 0 25%,#fff 0 50%) 0 0/16px 16px;border:6px solid #fff;outline:1px solid var(--line);border-radius:6px}
+.toast{position:fixed;left:50%;bottom:86px;transform:translateX(-50%);background:#14202b;color:#fff;padding:10px 14px;border-radius:10px;font-size:13px;opacity:0;transition:.3s;pointer-events:none;max-width:90%}.toast.show{opacity:1}
+.foot{text-align:center;font-size:11px;color:var(--mute);padding:8px 0 0}
+.screen{display:none}.screen.on{display:block}
+</style></head><body><div class="app">
+<header><div class="top"><span>Votre clinique — 2 sites à Lubumbashi</span><span class="badge">PROTOTYPE</span></div><h1>Rendez-vous, file d'attente et paiement depuis le téléphone</h1><p>Le patient réserve, paie et reçoit ses résultats sans appeler la réception.</p></header>
+<main>
+
+<section class="screen on" id="rdv">
+<div class="card"><h2>Prendre rendez-vous</h2><label>Site</label><div class="chips"><span class="chip on" onclick="pick(this)">Site Lumumba</span><span class="chip" onclick="pick(this)">Site Ville</span></div>
+<label>Spécialité</label><select><option>Médecine interne</option><option>Pédiatrie</option><option>Gynécologie</option><option>Laboratoire</option><option>Imagerie</option></select>
+<label>Jour</label><div class="chips"><span class="chip" onclick="pick(this)">Jeu 29</span><span class="chip on" onclick="pick(this)">Ven 30</span><span class="chip" onclick="pick(this)">Sam 31</span></div>
+<label>Heure</label><div class="chips"><span class="chip" onclick="pick(this)">08:30</span><span class="chip on" onclick="pick(this)">09:15</span><span class="chip" onclick="pick(this)">10:00</span><span class="chip" onclick="pick(this)">11:30</span></div>
+<div class="row"><span>Consultation</span><b>25,00 $</b></div>
+<label>Payer maintenant (facultatif)</label><div class="pay"><div class="on" onclick="pick(this)">M-Pesa</div><div onclick="pick(this)">Orange Money</div><div onclick="pick(this)">Airtel Money</div><div onclick="pick(this)">Carte bancaire</div></div>
+<button class="btn-p" onclick="toast('Rendez-vous confirmé — rappel SMS la veille');go('ticket')">Confirmer et payer 25 $</button>
+<div class="zola">Paiement sécurisé par <b>Zola Money Trans</b></div></div>
+</section>
+<section class="screen" id="ticket">
+<div class="card" style="text-align:center"><p class="muted">Ven 30 oct · 09:15 · Médecine interne · Site Lumumba</p><div style="font-size:46px;font-weight:800;color:var(--brand2)">B-014</div><p>Votre numéro</p>
+<div class="kpis" style="margin-top:8px"><div class="kpi"><small>Patients avant vous</small><b>3</b></div><div class="kpi"><small>Attente estimée</small><b>~20 min</b></div></div>
+<span class="pill p-ok">Consultation payée</span></div>
+<div class="card"><h2>Comment ça marche</h2><div class="tl"><div class="d">Réservation + paiement depuis le téléphone</div><div class="d">SMS de rappel la veille</div><div class="c">À l'arrivée : scan du ticket, pas de file à la caisse</div><div>Résultats et facture dans l'application</div></div></div>
+</section>
+<section class="screen" id="res">
+<div class="card"><h2>Mes résultats</h2>
+<div class="row"><div><div class="t">Hémogramme complet</div><div class="s">Laboratoire · 27/10</div></div><span class="pill p-ok">Disponible</span></div>
+<div class="row"><div><div class="t">Goutte épaisse</div><div class="s">Laboratoire · 27/10</div></div><span class="pill p-ok">Disponible</span></div>
+<div class="row"><div><div class="t">Échographie abdominale</div><div class="s">Imagerie · 29/10</div></div><span class="pill p-warn">En cours</span></div>
+<button class="btn-s" style="margin-top:10px" onclick="toast('Résultat ouvert (PDF signé)')">Ouvrir le PDF</button></div>
+<div class="card"><h2>Factures</h2><div class="row"><span>Consultation 30/10</span><span class="pill p-ok">Payée 25 $</span></div><div class="row"><span>Laboratoire 27/10</span><span class="pill p-warn">À payer 38 $</span></div>
+<button class="btn-p" style="margin-top:10px" onclick="toast('Paiement de 38 $ confirmé')">Payer 38 $</button></div>
+</section>
+<section class="screen" id="dir">
+<div class="kpis"><div class="kpi"><small>Rendez-vous aujourd'hui</small><b>146</b><small>Lumumba 88 · Ville 58</small></div><div class="kpi"><small>Payés à l'avance</small><b>61 %</b><small>moins d'attente à la caisse</small></div>
+<div class="kpi"><small>Encaissé aujourd'hui</small><b>6 840 $</b><small>mobile money + carte</small></div><div class="kpi"><small>Absences</small><b>4 %</b><small>grâce aux rappels SMS</small></div></div>
+<div class="card"><h2>Occupation par spécialité</h2>
+<div class="row"><div><div class="t">Médecine interne</div><div class="bar" style="width:200px"><i style="width:91%"></i></div></div><b>91 %</b></div>
+<div class="row"><div><div class="t">Pédiatrie</div><div class="bar" style="width:200px"><i style="width:76%"></i></div></div><b>76 %</b></div>
+<div class="row"><div><div class="t">Gynécologie</div><div class="bar" style="width:200px"><i style="width:68%"></i></div></div><b>68 %</b></div>
+<div class="row"><div><div class="t">Imagerie</div><div class="bar" style="width:200px"><i style="width:54%"></i></div></div><b>54 %</b></div></div>
+</section>
+<div class="foot">Prototype réalisé par Swazi Appli Lab SARL · données fictives · WhatsApp +243 857 767 040</div>
+</main>
+<nav><button data-s="rdv" class="on" onclick="go('rdv')"><span>📅</span>Rendez-vous</button><button data-s="ticket" class="" onclick="go('ticket')"><span>🎫</span>Ma file</button><button data-s="res" class="" onclick="go('res')"><span>🧪</span>Résultats</button><button data-s="dir" class="" onclick="go('dir')"><span>📊</span>Direction</button></nav>
+<div class="toast" id="toast"></div>
+</div>
+<script>
+function go(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id===id));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.s===id));window.scrollTo(0,0)}
+function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2200)}
+function pick(el){el.parentNode.querySelectorAll('.on').forEach(x=>x.classList.remove('on'));el.classList.add('on')}
+
+</script></body></html>
