@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Portail client douane et transport — prototype</title>
+<style>
+:root{--ink:#14202b;--mute:#5d6b78;--line:#e3e8ee;--bg:#f3f6f9;--card:#fff;--brand:#1d2d50;--brand2:#f2a516;--ok:#1f8a5b;--warn:#c27c0e;--bad:#c0392b}
+*{box-sizing:border-box}html,body{margin:0}body{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#dfe6ec;color:var(--ink);font-size:15px}
+.app{max-width:440px;margin:0 auto;min-height:100vh;background:var(--bg);display:flex;flex-direction:column;position:relative}
+header{background:var(--brand);color:#fff;padding:16px 18px 18px}
+header .top{display:flex;justify-content:space-between;align-items:center;font-size:12px;opacity:.9}
+header h1{font-size:19px;margin:8px 0 2px;line-height:1.2}header p{margin:0;font-size:13px;opacity:.85}
+.badge{background:rgba(255,255,255,.18);border-radius:20px;padding:3px 9px;font-size:11px;font-weight:600}
+main{flex:1;padding:14px 14px 90px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+.card h2{font-size:15px;margin:0 0 10px}.muted{color:var(--mute);font-size:13px}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px}.kpi b{display:block;font-size:20px;margin-top:4px}.kpi small{color:var(--mute);font-size:12px}
+.bar{height:8px;background:#e9eef3;border-radius:6px;overflow:hidden;margin:6px 0 2px}.bar i{display:block;height:100%;background:var(--brand2)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}.row:last-child{border-bottom:0}
+.row .t{font-weight:600;font-size:14px}.row .s{color:var(--mute);font-size:12px}
+.pill{font-size:11px;font-weight:700;border-radius:20px;padding:3px 8px;white-space:nowrap}.p-ok{background:#e3f4ec;color:var(--ok)}.p-warn{background:#fdf1dc;color:var(--warn)}.p-bad{background:#fbe5e2;color:var(--bad)}.p-info{background:#e5eef8;color:#2a5d9b}
+button,.btn{font:inherit;border:0;border-radius:12px;padding:12px 14px;font-weight:700;cursor:pointer;width:100%}
+.btn-p{background:var(--brand2);color:#fff}.btn-s{background:#eef2f6;color:var(--ink)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 12px}.chip{border:1px solid var(--line);background:#fff;border-radius:20px;padding:7px 12px;font-size:13px;cursor:pointer}.chip.on{border-color:var(--brand2);background:var(--brand2);color:#fff}
+input,select{font:inherit;width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;margin:4px 0 10px}
+label{font-size:12px;color:var(--mute);font-weight:600}
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:440px;background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);padding:6px 4px 10px}
+nav button{background:none;padding:6px 2px;font-size:11px;font-weight:600;color:var(--mute);border-radius:8px}nav button span{display:block;font-size:19px;line-height:1.3}nav button.on{color:var(--brand2)}
+.pay{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0 12px}.pay div{border:1px solid var(--line);border-radius:10px;padding:10px;text-align:center;font-size:13px;font-weight:600;cursor:pointer;background:#fff}.pay div.on{border-color:var(--brand2);box-shadow:0 0 0 2px var(--brand2) inset}
+.zola{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--mute);margin-top:8px}.zola b{color:#0a7a4d}
+.tl{border-left:2px solid var(--line);margin-left:6px;padding-left:14px}.tl div{position:relative;padding:0 0 12px}.tl div:before{content:"";position:absolute;left:-21px;top:3px;width:12px;height:12px;border-radius:50%;background:var(--line)}.tl div.d:before{background:var(--ok)}.tl div.c:before{background:var(--brand2);box-shadow:0 0 0 4px #fff,0 0 0 6px var(--brand2)}
+.qr{width:96px;height:96px;background:repeating-conic-gradient(#14202b 0 25%,#fff 0 50%) 0 0/16px 16px;border:6px solid #fff;outline:1px solid var(--line);border-radius:6px}
+.toast{position:fixed;left:50%;bottom:86px;transform:translateX(-50%);background:#14202b;color:#fff;padding:10px 14px;border-radius:10px;font-size:13px;opacity:0;transition:.3s;pointer-events:none;max-width:90%}.toast.show{opacity:1}
+.foot{text-align:center;font-size:11px;color:var(--mute);padding:8px 0 0}
+.screen{display:none}.screen.on{display:block}
+</style></head><body><div class="app">
+<header><div class="top"><span>Commissionnaire en douane — Lubumbashi</span><span class="badge">PROTOTYPE</span></div><h1>Vos clients suivent leurs dossiers et camions sans vous appeler</h1><p>Étapes douane, position du camion, documents et factures dans un seul portail.</p></header>
+<main>
+
+<section class="screen on" id="doss">
+<div class="kpis"><div class="kpi"><small>Dossiers en cours</small><b>27</b></div><div class="kpi"><small>Camions en route</small><b>9</b></div></div>
+<div class="card"><h2>Mes dossiers — Client : Mining Supply (fictif)</h2>
+<div class="row" onclick="go('det')" style="cursor:pointer"><div><div class="t">DOS-2026-1184 · Pompes et tuyauterie</div><div class="s">Import Afrique du Sud · 2 camions</div></div><span class="pill p-info">En route</span></div>
+<div class="row"><div><div class="t">DOS-2026-1179 · Réactifs chimiques</div><div class="s">Import Zambie · 1 camion</div></div><span class="pill p-warn">Liquidation</span></div>
+<div class="row"><div><div class="t">DOS-2026-1170 · Pièces engins</div><div class="s">Import Chine via Dar es Salaam</div></div><span class="pill p-warn">Docs manquants</span></div>
+<div class="row"><div><div class="t">DOS-2026-1162 · Cathodes cuivre</div><div class="s">Export · 4 camions</div></div><span class="pill p-ok">Livré</span></div>
+<p class="muted">Le client reçoit une notification WhatsApp à chaque étape.</p></div>
+</section>
+<section class="screen" id="det">
+<div class="card"><h2>DOS-2026-1184 · Pompes et tuyauterie</h2><p class="muted">Camion ZM-ABX 4521 · chauffeur joignable · ETA Lubumbashi : demain 11:00</p>
+<div class="tl"><div class="d"><b>Pré-dédouanement</b><br><span class="muted">Documents reçus 21/10</span></div><div class="d"><b>Déclaration DGDA</b><br><span class="muted">Enregistrée 23/10</span></div><div class="d"><b>Liquidation et paiement des droits</b><br><span class="muted">Payé 25/10</span></div><div class="d"><b>Mainlevée Kasumbalesa</b><br><span class="muted">27/10 15:40</span></div><div class="c"><b>En route vers Lubumbashi</b><br><span class="muted">Dernière position : Kipushi (embranchement), 28/10 18:05</span></div><div><b>Livraison entrepôt client</b></div></div>
+<button class="btn-s" onclick="toast('Position envoyée au client par WhatsApp')">Partager la position</button></div>
+</section>
+<section class="screen" id="docs">
+<div class="card"><h2>Documents du dossier</h2>
+<div class="row"><span>Facture commerciale</span><span class="pill p-ok">Reçu</span></div><div class="row"><span>Liste de colisage</span><span class="pill p-ok">Reçu</span></div><div class="row"><span>Certificat d'origine</span><span class="pill p-ok">Reçu</span></div><div class="row"><span>Déclaration DGDA</span><span class="pill p-ok">Disponible</span></div><div class="row"><span>Bon de mainlevée</span><span class="pill p-ok">Disponible</span></div>
+<button class="btn-p" style="margin-top:10px" onclick="toast('Document ajouté au dossier')">Le client dépose un document</button></div>
+</section>
+<section class="screen" id="fact">
+<div class="card"><h2>Factures</h2><div class="row"><div><div class="t">FAC-2026-0412 · DOS-1184</div><div class="s">Honoraires + transport</div></div><b>1 860 $</b></div>
+<label>Moyen de paiement</label><div class="pay"><div class="on" onclick="pick(this)">Carte bancaire</div><div onclick="pick(this)">M-Pesa</div><div onclick="pick(this)">Orange Money</div><div onclick="pick(this)">Airtel Money</div></div>
+<button class="btn-p" onclick="toast('Paiement de 1 860 $ confirmé — reçu envoyé')">Payer 1 860 $</button>
+<div class="zola">Paiement sécurisé par <b>Zola Money Trans</b></div></div>
+</section>
+<div class="foot">Prototype réalisé par Swazi Appli Lab SARL · données fictives · WhatsApp +243 857 767 040</div>
+</main>
+<nav><button data-s="doss" class="on" onclick="go('doss')"><span>📦</span>Dossiers</button><button data-s="det" class="" onclick="go('det')"><span>🚚</span>Suivi</button><button data-s="docs" class="" onclick="go('docs')"><span>📄</span>Documents</button><button data-s="fact" class="" onclick="go('fact')"><span>💳</span>Factures</button></nav>
+<div class="toast" id="toast"></div>
+</div>
+<script>
+function go(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id===id));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.s===id));window.scrollTo(0,0)}
+function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2200)}
+function pick(el){el.parentNode.querySelectorAll('.on').forEach(x=>x.classList.remove('on'));el.classList.add('on')}
+
+</script></body></html>
