@@ -1,0 +1,43 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Devis & commandes véhicules — Prototype</title><style>
+:root{--c:#1f4e79;--bg:#f4f6f8;--card:#fff;--t:#1d2733;--m:#66727f}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#dfe4ea;color:var(--t)}
+.app{max-width:430px;margin:0 auto;min-height:100vh;background:var(--bg);position:relative;padding-bottom:72px}
+.banner{background:#1d2733;color:#fff;font-size:11px;text-align:center;padding:5px}
+header{background:var(--c);color:#fff;padding:16px 16px 18px}header h1{margin:0;font-size:19px}header p{margin:4px 0 0;font-size:13px;opacity:.9}
+.screen{display:none;padding:14px}.screen.on{display:block}
+.card{background:var(--card);border-radius:12px;padding:13px;margin-bottom:11px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.card h3{margin:0 0 6px;font-size:15px}.muted{color:var(--m);font-size:12.5px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.btn{display:block;width:100%;border:0;border-radius:10px;background:var(--c);color:#fff;font-weight:600;font-size:14px;padding:11px;margin-top:9px;cursor:pointer}
+.btn.o{background:#fff;color:var(--c);border:1.5px solid var(--c)}
+.pill{display:inline-block;font-size:11px;padding:3px 8px;border-radius:20px;background:#eef1f4;color:#33414f;font-weight:600}
+.pill.g{background:#e3f5e8;color:#1b7a3a}.pill.y{background:#fff4d6;color:#8a6100}.pill.r{background:#fde4e4;color:#a12a2a}.pill.b{background:#e3eefc;color:#1b4f9a}
+label{display:block;font-size:12px;color:var(--m);margin:8px 0 3px}input,select,textarea{width:100%;padding:9px;border:1px solid #cfd6dd;border-radius:8px;font-size:14px;font-family:inherit;background:#fff}
+.steps{display:flex;gap:4px;margin:8px 0}.steps span{flex:1;height:6px;border-radius:3px;background:#dde3e8}.steps span.d{background:var(--c)}
+.kpi{display:grid;grid-template-columns:1fr 1fr;gap:9px}.kpi .card{margin:0;text-align:center}.kpi b{display:block;font-size:22px;color:var(--c)}
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#fff;display:flex;border-top:1px solid #dde3e8}
+nav button{flex:1;border:0;background:none;padding:8px 2px 10px;font-size:11px;color:var(--m);cursor:pointer}nav button i{display:block;font-style:normal;font-size:19px}
+nav button.on{color:var(--c);font-weight:700}
+.zola{border:1.5px dashed var(--c);border-radius:10px;padding:10px;font-size:12.5px;margin-top:8px}
+.ops{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}.ops span{font-size:11px;border:1px solid #cfd6dd;border-radius:6px;padding:4px 7px;cursor:pointer;background:#fff}.ops span.sel{border-color:var(--c);background:var(--c);color:#fff}
+#toast{position:fixed;left:50%;bottom:84px;transform:translateX(-50%);background:#1d2733;color:#fff;padding:10px 14px;border-radius:9px;font-size:13px;display:none;max-width:360px;text-align:center;z-index:9}
+table{width:100%;border-collapse:collapse;font-size:12.5px}td{padding:6px 2px;border-bottom:1px solid #eef1f4}
+</style></head><body><div class="app">
+<div class="banner">Prototype — Swazi Appli Lab SARL · données de démonstration</div>
+<header><h1>Devis & commandes véhicules</h1><p>Concession — Kolwezi · espace clients entreprises</p></header>
+<section class="screen"><div class="card"><h3>Pick-up double cabine 4x4</h3><div class="muted">Diesel · version mine · gyrophare, extincteur, kit sécurité</div><div class="row"><span class="pill g">En stock : 6</span><b>dès 52 000 $</b></div><button class="btn" onclick="go(1);toast('Demande de devis créée : DV-2026-118')">Demander un devis</button></div>
+<div class="card"><h3>Station wagon 4x4 (78 Series)</h3><div class="muted">Transport du personnel · 10 places</div><div class="row"><span class="pill y">Arrivage : 3 semaines</span><b>dès 61 000 $</b></div><button class="btn o" onclick="go(1);toast('Demande de devis créée : DV-2026-119')">Demander un devis</button></div>
+<div class="card"><h3>Minibus 14 places</h3><div class="muted">Navettes chantier</div><div class="row"><span class="pill g">En stock : 2</span><b>dès 48 500 $</b></div><button class="btn o" onclick="go(1);toast('Demande de devis créée : DV-2026-120')">Demander un devis</button></div></section><section class="screen"><div class="card"><div class="row"><h3>DV-2026-118 · 3 pick-up</h3><span class="pill b">Devis envoyé</span></div><div class="steps"><span class="d"></span><span class="d"></span><span></span><span></span><span></span></div><div class="muted">Demandé → Envoyé → Approuvé → Bon de commande → Livré</div><div class="row" style="margin-top:8px"><span>Total</span><b>156 000 $</b></div><button class="btn" onclick="this.parentNode.querySelector('.pill').textContent='Approuvé';this.parentNode.querySelector('.pill').className='pill g';this.parentNode.querySelectorAll('.steps span')[2].className='d';toast('Devis approuvé — bon de commande à joindre')">Approuver le devis</button>
+<div class="zola"><b>Acompte 30 % : 46 800 $</b> — Paiement Zola Money Trans<div class="ops"><span class="sel">Carte</span><span>M-Pesa</span><span>Orange Money</span><span>Airtel Money</span></div></div><button class="btn o" onclick="toast('Lien de paiement Zola envoyé au service achats')">Payer l'acompte</button></div>
+<div class="card"><div class="row"><h3>DV-2026-104 · 1 minibus</h3><span class="pill g">Livré 22/10</span></div><div class="muted">Facture et carte grise disponibles</div></div></section><section class="screen"><div class="card"><h3>Réserver un entretien</h3><label>Véhicule de la flotte</label><select><option>Pick-up · 7834-AB-19 · 48 200 km</option><option>Minibus · 1290-AC-19 · 61 700 km</option></select><label>Type</label><select><option>Révision 50 000 km</option><option>Freins / pneus</option><option>Diagnostic panne</option></select><label>Créneau</label><div class="ops"><span class="sel">Lun 2/11 · 08:00</span><span>Lun 2/11 · 13:00</span><span>Mar 3/11 · 08:00</span><span>Sam 7/11 · 09:00</span></div><button class="btn" onclick="toast('Rendez-vous confirmé — rappel SMS la veille')">Confirmer le rendez-vous</button></div>
+<div class="card"><h3>Historique · 7834-AB-19</h3><table><tr><td>12/08</td><td>Révision 40 000 km</td><td>320 $</td></tr><tr><td>03/06</td><td>Pneus x4</td><td>880 $</td></tr></table></div></section><section class="screen"><div class="kpi"><div class="card"><b>14</b><span class="muted">devis ouverts</span></div><div class="card"><b>5</b><span class="muted">approuvés ce mois</span></div><div class="card"><b>9</b><span class="muted">livraisons à venir</span></div><div class="card"><b>23</b><span class="muted">RDV atelier semaine</span></div></div>
+<div class="card" style="margin-top:11px"><h3>À relancer aujourd'hui</h3><table><tr><td>DV-2026-112</td><td>Société minière A</td><td><span class="pill y">J+6</span></td></tr><tr><td>DV-2026-115</td><td>Entreprise transport B</td><td><span class="pill y">J+4</span></td></tr><tr><td>DV-2026-117</td><td>Sous-traitant C</td><td><span class="pill r">J+9</span></td></tr></table><button class="btn o" onclick="toast('3 relances envoyées par e-mail et WhatsApp')">Relancer tout</button></div></section>
+<nav><button onclick="go(0)"><i>🚙</i>Catalogue</button><button onclick="go(1)"><i>📄</i>Mes devis</button><button onclick="go(2)"><i>🔧</i>Atelier</button><button onclick="go(3)"><i>📊</i>Tableau</button></nav><div id="toast"></div></div>
+<script>
+function go(i){document.querySelectorAll('.screen').forEach((s,k)=>s.classList.toggle('on',k==i));document.querySelectorAll('nav button').forEach((b,k)=>b.classList.toggle('on',k==i));window.scrollTo(0,0)}
+function toast(m){var t=document.getElementById('toast');t.textContent=m;t.style.display='block';clearTimeout(window._t);window._t=setTimeout(()=>t.style.display='none',2600)}
+document.addEventListener('click',e=>{if(e.target.matches('.ops span')){e.target.parentNode.querySelectorAll('span').forEach(s=>s.classList.remove('sel'));e.target.classList.add('sel')}});
+
+go(0)
+</script></body></html>
