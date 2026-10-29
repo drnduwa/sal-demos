@@ -1,0 +1,41 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pièces & service engins — Prototype</title><style>
+:root{--c:#37474f;--bg:#f4f6f8;--card:#fff;--t:#1d2733;--m:#66727f}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#dfe4ea;color:var(--t)}
+.app{max-width:430px;margin:0 auto;min-height:100vh;background:var(--bg);position:relative;padding-bottom:72px}
+.banner{background:#1d2733;color:#fff;font-size:11px;text-align:center;padding:5px}
+header{background:var(--c);color:#fff;padding:16px 16px 18px}header h1{margin:0;font-size:19px}header p{margin:4px 0 0;font-size:13px;opacity:.9}
+.screen{display:none;padding:14px}.screen.on{display:block}
+.card{background:var(--card);border-radius:12px;padding:13px;margin-bottom:11px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.card h3{margin:0 0 6px;font-size:15px}.muted{color:var(--m);font-size:12.5px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.btn{display:block;width:100%;border:0;border-radius:10px;background:var(--c);color:#fff;font-weight:600;font-size:14px;padding:11px;margin-top:9px;cursor:pointer}
+.btn.o{background:#fff;color:var(--c);border:1.5px solid var(--c)}
+.pill{display:inline-block;font-size:11px;padding:3px 8px;border-radius:20px;background:#eef1f4;color:#33414f;font-weight:600}
+.pill.g{background:#e3f5e8;color:#1b7a3a}.pill.y{background:#fff4d6;color:#8a6100}.pill.r{background:#fde4e4;color:#a12a2a}.pill.b{background:#e3eefc;color:#1b4f9a}
+label{display:block;font-size:12px;color:var(--m);margin:8px 0 3px}input,select,textarea{width:100%;padding:9px;border:1px solid #cfd6dd;border-radius:8px;font-size:14px;font-family:inherit;background:#fff}
+.steps{display:flex;gap:4px;margin:8px 0}.steps span{flex:1;height:6px;border-radius:3px;background:#dde3e8}.steps span.d{background:var(--c)}
+.kpi{display:grid;grid-template-columns:1fr 1fr;gap:9px}.kpi .card{margin:0;text-align:center}.kpi b{display:block;font-size:22px;color:var(--c)}
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#fff;display:flex;border-top:1px solid #dde3e8}
+nav button{flex:1;border:0;background:none;padding:8px 2px 10px;font-size:11px;color:var(--m);cursor:pointer}nav button i{display:block;font-style:normal;font-size:19px}
+nav button.on{color:var(--c);font-weight:700}
+.zola{border:1.5px dashed var(--c);border-radius:10px;padding:10px;font-size:12.5px;margin-top:8px}
+.ops{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}.ops span{font-size:11px;border:1px solid #cfd6dd;border-radius:6px;padding:4px 7px;cursor:pointer;background:#fff}.ops span.sel{border-color:var(--c);background:var(--c);color:#fff}
+#toast{position:fixed;left:50%;bottom:84px;transform:translateX(-50%);background:#1d2733;color:#fff;padding:10px 14px;border-radius:9px;font-size:13px;display:none;max-width:360px;text-align:center;z-index:9}
+table{width:100%;border-collapse:collapse;font-size:12.5px}td{padding:6px 2px;border-bottom:1px solid #eef1f4}
+</style></head><body><div class="app">
+<div class="banner">Prototype — Swazi Appli Lab SARL · données de démonstration</div>
+<header><h1>Pièces & service engins</h1><p>Équipements miniers — Lubumbashi</p></header>
+<section class="screen"><div class="card"><label>Référence pièce ou machine</label><input value="Chenille / galet — tombereau articulé"><button class="btn" onclick="toast('3 résultats')">Rechercher</button></div>
+<div class="card"><div class="row"><h3>Galet inférieur · réf. D-4471</h3><span class="pill g">Stock Lubumbashi : 12</span></div><div class="muted">Compatible bulldozer classe 20 t</div><button class="btn o" onclick="go(1);toast('Demande de cotation CT-882 créée')">Demander une cotation</button></div>
+<div class="card"><div class="row"><h3>Filtre hydraulique · réf. H-2210</h3><span class="pill y">Délai 10 jours</span></div><div class="muted">Tombereau articulé 30–40 t</div><button class="btn o" onclick="go(1);toast('Demande de cotation CT-883 créée')">Demander une cotation</button></div></section><section class="screen"><div class="card"><div class="row"><h3>CT-882 · 8 galets</h3><span class="pill b">Cotation envoyée</span></div><div class="steps"><span class="d"></span><span class="d"></span><span></span><span></span></div><div class="muted">Demande → Cotation → Commande → Livrée sur site</div><button class="btn" onclick="toast('Commande confirmée — livraison prévue le 4/11')">Confirmer la commande</button></div>
+<div class="card"><div class="row"><h3>CT-871 · Kit filtres x20</h3><span class="pill g">Livré · Kolwezi</span></div><div class="muted">Bon de livraison signé le 26/10</div></div></section><section class="screen"><div class="card"><h3>Demande d'intervention</h3><label>Machine</label><select><option>Tombereau TA-07 · site Kolwezi</option><option>Bulldozer BD-02 · site Likasi</option></select><label>Compteur horaire</label><input value="11 482 h"><label>Panne constatée</label><textarea rows="2">Perte de pression hydraulique en charge</textarea><label>Photo</label><input type="file"><label>Urgence</label><div class="ops"><span>Normale</span><span class="sel">Machine arrêtée</span></div><button class="btn" onclick="toast('Intervention INT-219 créée — technicien assigné')">Envoyer</button></div></section><section class="screen"><div class="kpi"><div class="card"><b>27</b><span class="muted">cotations ouvertes</span></div><div class="card"><b>9</b><span class="muted">pièces à commander</span></div><div class="card"><b>6</b><span class="muted">interventions en cours</span></div><div class="card"><b>3</b><span class="muted">machines arrêtées</span></div></div>
+<div class="card" style="margin-top:11px"><h3>Planning techniciens</h3><table><tr><td>Tech. 1</td><td>Kolwezi · INT-219</td><td><span class="pill r">Urgent</span></td></tr><tr><td>Tech. 2</td><td>Likasi · INT-216</td><td><span class="pill y">En route</span></td></tr><tr><td>Tech. 3</td><td>Atelier Lubumbashi</td><td><span class="pill g">Libre</span></td></tr></table></div></section>
+<nav><button onclick="go(0)"><i>⚙️</i>Pièces</button><button onclick="go(1)"><i>📦</i>Commandes</button><button onclick="go(2)"><i>🛠️</i>Intervention</button><button onclick="go(3)"><i>📊</i>Agence</button></nav><div id="toast"></div></div>
+<script>
+function go(i){document.querySelectorAll('.screen').forEach((s,k)=>s.classList.toggle('on',k==i));document.querySelectorAll('nav button').forEach((b,k)=>b.classList.toggle('on',k==i));window.scrollTo(0,0)}
+function toast(m){var t=document.getElementById('toast');t.textContent=m;t.style.display='block';clearTimeout(window._t);window._t=setTimeout(()=>t.style.display='none',2600)}
+document.addEventListener('click',e=>{if(e.target.matches('.ops span')){e.target.parentNode.querySelectorAll('span').forEach(s=>s.classList.remove('sel'));e.target.classList.add('sel')}});
+
+go(0)
+</script></body></html>
