@@ -1,0 +1,44 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Espace adhérent santé — Prototype</title><style>
+:root{--c:#00796b;--bg:#f4f6f8;--card:#fff;--t:#1d2733;--m:#66727f}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#dfe4ea;color:var(--t)}
+.app{max-width:430px;margin:0 auto;min-height:100vh;background:var(--bg);position:relative;padding-bottom:72px}
+.banner{background:#1d2733;color:#fff;font-size:11px;text-align:center;padding:5px}
+header{background:var(--c);color:#fff;padding:16px 16px 18px}header h1{margin:0;font-size:19px}header p{margin:4px 0 0;font-size:13px;opacity:.9}
+.screen{display:none;padding:14px}.screen.on{display:block}
+.card{background:var(--card);border-radius:12px;padding:13px;margin-bottom:11px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.card h3{margin:0 0 6px;font-size:15px}.muted{color:var(--m);font-size:12.5px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.btn{display:block;width:100%;border:0;border-radius:10px;background:var(--c);color:#fff;font-weight:600;font-size:14px;padding:11px;margin-top:9px;cursor:pointer}
+.btn.o{background:#fff;color:var(--c);border:1.5px solid var(--c)}
+.pill{display:inline-block;font-size:11px;padding:3px 8px;border-radius:20px;background:#eef1f4;color:#33414f;font-weight:600}
+.pill.g{background:#e3f5e8;color:#1b7a3a}.pill.y{background:#fff4d6;color:#8a6100}.pill.r{background:#fde4e4;color:#a12a2a}.pill.b{background:#e3eefc;color:#1b4f9a}
+label{display:block;font-size:12px;color:var(--m);margin:8px 0 3px}input,select,textarea{width:100%;padding:9px;border:1px solid #cfd6dd;border-radius:8px;font-size:14px;font-family:inherit;background:#fff}
+.steps{display:flex;gap:4px;margin:8px 0}.steps span{flex:1;height:6px;border-radius:3px;background:#dde3e8}.steps span.d{background:var(--c)}
+.kpi{display:grid;grid-template-columns:1fr 1fr;gap:9px}.kpi .card{margin:0;text-align:center}.kpi b{display:block;font-size:22px;color:var(--c)}
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#fff;display:flex;border-top:1px solid #dde3e8}
+nav button{flex:1;border:0;background:none;padding:8px 2px 10px;font-size:11px;color:var(--m);cursor:pointer}nav button i{display:block;font-style:normal;font-size:19px}
+nav button.on{color:var(--c);font-weight:700}
+.zola{border:1.5px dashed var(--c);border-radius:10px;padding:10px;font-size:12.5px;margin-top:8px}
+.ops{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}.ops span{font-size:11px;border:1px solid #cfd6dd;border-radius:6px;padding:4px 7px;cursor:pointer;background:#fff}.ops span.sel{border-color:var(--c);background:var(--c);color:#fff}
+#toast{position:fixed;left:50%;bottom:84px;transform:translateX(-50%);background:#1d2733;color:#fff;padding:10px 14px;border-radius:9px;font-size:13px;display:none;max-width:360px;text-align:center;z-index:9}
+table{width:100%;border-collapse:collapse;font-size:12.5px}td{padding:6px 2px;border-bottom:1px solid #eef1f4}
+</style></head><body><div class="app">
+<div class="banner">Prototype — Swazi Appli Lab SARL · données de démonstration</div>
+<header><h1>Espace adhérent santé</h1><p>Assurance santé entreprises — Lubumbashi</p></header>
+<section class="screen"><div class="card" style="background:linear-gradient(135deg,#00796b,#004d40);color:#fff"><div class="muted" style="color:#cde">Carte adhérent (démo)</div><h3 style="font-size:18px;margin-top:6px">KABWE Jean-Paul</h3><div>Employeur : Entreprise démo SARL</div><div>Formule 4 · famille (5 bénéficiaires)</div><div class="row" style="margin-top:10px"><span>N° MA-2026-04417</span><span style="background:#fff;color:#000;padding:10px;border-radius:6px;font-size:10px">▣▢▣<br>▢▣▢<br>▣▢▣</span></div></div>
+<div class="card"><h3>Bénéficiaires</h3><table><tr><td>Jean-Paul (titulaire)</td><td><span class="pill g">Actif</span></td></tr><tr><td>Conjointe</td><td><span class="pill g">Actif</span></td></tr><tr><td>3 enfants</td><td><span class="pill g">Actifs</span></td></tr></table></div></section><section class="screen"><div class="card"><label>Ville</label><div class="ops"><span class="sel">Lubumbashi</span><span>Likasi</span><span>Kolwezi</span></div></div>
+<div class="card"><div class="row"><h3>Clinique partenaire A</h3><span class="pill g">Ouvert 24/7</span></div><div class="muted">Urgences · maternité · imagerie · 2,1 km</div><button class="btn o" onclick="toast('Itinéraire ouvert dans Maps')">Itinéraire</button></div>
+<div class="card"><div class="row"><h3>Hôpital partenaire B</h3><span class="pill b">08:00–18:00</span></div><div class="muted">Médecine interne · pédiatrie · 4,8 km</div><button class="btn o" onclick="toast('Itinéraire ouvert dans Maps')">Itinéraire</button></div>
+<div class="card"><div class="row"><h3>Laboratoire partenaire C</h3><span class="pill b">07:00–20:00</span></div><div class="muted">Analyses · résultats par SMS · 1,3 km</div></div></section><section class="screen"><div class="card"><h3>Nouvelle demande</h3><label>Bénéficiaire</label><select><option>Conjointe</option><option>Enfant 1</option></select><label>Établissement</label><select><option>Clinique partenaire A</option><option>Hôpital partenaire B</option></select><label>Acte</label><select><option>Échographie</option><option>Hospitalisation</option><option>Chirurgie programmée</option></select><label>Ordonnance / devis (photo)</label><input type="file"><button class="btn" onclick="toast('Demande PEC-3391 envoyée — réponse sous 2 h')">Envoyer la demande</button></div>
+<div class="card"><div class="row"><h3>PEC-3377 · Analyses</h3><span class="pill g">Approuvée</span></div><div class="muted">Bon de prise en charge envoyé à la clinique</div></div>
+<div class="card"><div class="row"><h3>PEC-3385 · Dentaire</h3><span class="pill y">En étude</span></div><div class="muted">Médecin-conseil · reçu 28/10</div></div></section><section class="screen"><div class="kpi"><div class="card"><b>312</b><span class="muted">personnes couvertes</span></div><div class="card"><b>41</b><span class="muted">prises en charge (oct.)</span></div><div class="card"><b>96 %</b><span class="muted">approuvées</span></div><div class="card"><b>14</b><span class="muted">renouvellements 30 j</span></div></div>
+<div class="card" style="margin-top:11px"><h3>Cotisation de novembre</h3><div class="row"><span>Entreprise démo SARL</span><b>4 860 $</b></div><div class="zola"><b>Paiement Zola Money Trans</b><div class="muted">carte, M-Pesa, Orange Money, Airtel Money</div><div class="ops"><span class="sel">M-Pesa</span><span>Orange Money</span><span>Airtel Money</span><span>Carte</span></div></div><button class="btn" onclick="toast('Cotisation réglée — reçu envoyé à la DRH')">Régler la cotisation</button></div></section>
+<nav><button onclick="go(0)"><i>🪪</i>Ma carte</button><button onclick="go(1)"><i>🏥</i>Réseau</button><button onclick="go(2)"><i>📝</i>Prise en charge</button><button onclick="go(3)"><i>📊</i>Employeur</button></nav><div id="toast"></div></div>
+<script>
+function go(i){document.querySelectorAll('.screen').forEach((s,k)=>s.classList.toggle('on',k==i));document.querySelectorAll('nav button').forEach((b,k)=>b.classList.toggle('on',k==i));window.scrollTo(0,0)}
+function toast(m){var t=document.getElementById('toast');t.textContent=m;t.style.display='block';clearTimeout(window._t);window._t=setTimeout(()=>t.style.display='none',2600)}
+document.addEventListener('click',e=>{if(e.target.matches('.ops span')){e.target.parentNode.querySelectorAll('span').forEach(s=>s.classList.remove('sel'));e.target.classList.add('sel')}});
+
+go(0)
+</script></body></html>
