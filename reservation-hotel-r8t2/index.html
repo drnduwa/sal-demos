@@ -1,0 +1,41 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Réservation hôtel en ligne — Prototype</title><style>
+:root{--c:#8a5a1f;--bg:#f4f6f8;--card:#fff;--t:#1d2733;--m:#66727f}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#dfe4ea;color:var(--t)}
+.app{max-width:430px;margin:0 auto;min-height:100vh;background:var(--bg);position:relative;padding-bottom:72px}
+.banner{background:#1d2733;color:#fff;font-size:11px;text-align:center;padding:5px}
+header{background:var(--c);color:#fff;padding:16px 16px 18px}header h1{margin:0;font-size:19px}header p{margin:4px 0 0;font-size:13px;opacity:.9}
+.screen{display:none;padding:14px}.screen.on{display:block}
+.card{background:var(--card);border-radius:12px;padding:13px;margin-bottom:11px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.card h3{margin:0 0 6px;font-size:15px}.muted{color:var(--m);font-size:12.5px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.btn{display:block;width:100%;border:0;border-radius:10px;background:var(--c);color:#fff;font-weight:600;font-size:14px;padding:11px;margin-top:9px;cursor:pointer}
+.btn.o{background:#fff;color:var(--c);border:1.5px solid var(--c)}
+.pill{display:inline-block;font-size:11px;padding:3px 8px;border-radius:20px;background:#eef1f4;color:#33414f;font-weight:600}
+.pill.g{background:#e3f5e8;color:#1b7a3a}.pill.y{background:#fff4d6;color:#8a6100}.pill.r{background:#fde4e4;color:#a12a2a}.pill.b{background:#e3eefc;color:#1b4f9a}
+label{display:block;font-size:12px;color:var(--m);margin:8px 0 3px}input,select,textarea{width:100%;padding:9px;border:1px solid #cfd6dd;border-radius:8px;font-size:14px;font-family:inherit;background:#fff}
+.steps{display:flex;gap:4px;margin:8px 0}.steps span{flex:1;height:6px;border-radius:3px;background:#dde3e8}.steps span.d{background:var(--c)}
+.kpi{display:grid;grid-template-columns:1fr 1fr;gap:9px}.kpi .card{margin:0;text-align:center}.kpi b{display:block;font-size:22px;color:var(--c)}
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#fff;display:flex;border-top:1px solid #dde3e8}
+nav button{flex:1;border:0;background:none;padding:8px 2px 10px;font-size:11px;color:var(--m);cursor:pointer}nav button i{display:block;font-style:normal;font-size:19px}
+nav button.on{color:var(--c);font-weight:700}
+.zola{border:1.5px dashed var(--c);border-radius:10px;padding:10px;font-size:12.5px;margin-top:8px}
+.ops{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}.ops span{font-size:11px;border:1px solid #cfd6dd;border-radius:6px;padding:4px 7px;cursor:pointer;background:#fff}.ops span.sel{border-color:var(--c);background:var(--c);color:#fff}
+#toast{position:fixed;left:50%;bottom:84px;transform:translateX(-50%);background:#1d2733;color:#fff;padding:10px 14px;border-radius:9px;font-size:13px;display:none;max-width:360px;text-align:center;z-index:9}
+table{width:100%;border-collapse:collapse;font-size:12.5px}td{padding:6px 2px;border-bottom:1px solid #eef1f4}
+</style></head><body><div class="app">
+<div class="banner">Prototype — Swazi Appli Lab SARL · données de démonstration</div>
+<header><h1>Réservation en ligne</h1><p>Hôtel — centre-ville de Lubumbashi</p></header>
+<section class="screen"><div class="card"><h3>Vos dates</h3><div class="row"><div style="flex:1"><label>Arrivée</label><input type="date" value="2026-11-05"></div><div style="flex:1"><label>Départ</label><input type="date" value="2026-11-08"></div></div><label>Personnes</label><select><option>1 adulte</option><option selected>2 adultes</option></select></div>
+<div class="card"><div class="row"><h3>Chambre Standard</h3><b>60 $/nuit</b></div><div class="row"><span class="pill g">4 disponibles</span><span class="muted">3 nuits = 180 $</span></div><button class="btn o" onclick="sel('Standard',180)">Choisir</button></div>
+<div class="card"><div class="row"><h3>Chambre Deluxe</h3><b>70 $/nuit</b></div><div class="row"><span class="pill y">2 disponibles</span><span class="muted">3 nuits = 210 $</span></div><button class="btn" onclick="sel('Deluxe',210)">Choisir</button></div>
+<div class="card"><div class="row"><h3>Appartement</h3><b>100 $/nuit</b></div><div class="row"><span class="pill g">1 disponible</span><span class="muted">3 nuits = 300 $</span></div><button class="btn o" onclick="sel('Appartement',300)">Choisir</button></div></section><section class="screen"><div class="card"><h3>Vos coordonnées</h3><label>Nom</label><input value="M. Ilunga (démo)"><label>Téléphone WhatsApp</label><input value="+243 97 000 0000"><label>Options</label><div class="ops"><span class="sel">Navette aéroport</span><span>Petit-déjeuner</span><span>Salle de réunion</span></div><button class="btn" onclick="go(2)">Continuer vers le paiement</button></div></section><section class="screen"><div class="card"><h3 id="sum">Chambre Deluxe · 3 nuits</h3><div class="row"><span>Total séjour</span><b id="tot">210 $</b></div><div class="row"><span>Acompte (50 %)</span><b id="dep">105 $</b></div><div class="zola"><b>Paiement Zola Money Trans</b><div class="muted">carte, M-Pesa, Orange Money, Airtel Money</div><div class="ops"><span class="sel">M-Pesa</span><span>Orange Money</span><span>Airtel Money</span><span>Carte</span></div></div><button class="btn" onclick="this.outerHTML='<div class=&quot;card&quot; style=&quot;text-align:center;margin-top:10px&quot;><div style=&quot;font-size:44px&quot;>✅</div><b>Réservation RB-2611-047 confirmée</b><div class=&quot;muted&quot;>QR code envoyé par WhatsApp et e-mail</div></div>';toast('Acompte reçu — réception notifiée')">Payer l'acompte</button></div></section><section class="screen"><div class="kpi"><div class="card"><b>78 %</b><span class="muted">occupation ce soir</span></div><div class="card"><b>6</b><span class="muted">arrivées aujourd'hui</span></div><div class="card"><b>1 240 $</b><span class="muted">acomptes reçus (7 j)</span></div><div class="card"><b>3</b><span class="muted">navettes aéroport</span></div></div>
+<div class="card" style="margin-top:11px"><h3>Arrivées du jour</h3><table><tr><td>14:00</td><td>Deluxe · Client A</td><td><span class="pill g">Payé</span></td></tr><tr><td>16:30</td><td>Standard · Client B</td><td><span class="pill y">Acompte</span></td></tr><tr><td>19:10</td><td>Appartement · Client C</td><td><span class="pill b">Navette</span></td></tr></table></div></section>
+<nav><button onclick="go(0)"><i>🛏️</i>Réserver</button><button onclick="go(1)"><i>👤</i>Client</button><button onclick="go(2)"><i>💳</i>Paiement</button><button onclick="go(3)"><i>🛎️</i>Réception</button></nav><div id="toast"></div></div>
+<script>
+function go(i){document.querySelectorAll('.screen').forEach((s,k)=>s.classList.toggle('on',k==i));document.querySelectorAll('nav button').forEach((b,k)=>b.classList.toggle('on',k==i));window.scrollTo(0,0)}
+function toast(m){var t=document.getElementById('toast');t.textContent=m;t.style.display='block';clearTimeout(window._t);window._t=setTimeout(()=>t.style.display='none',2600)}
+document.addEventListener('click',e=>{if(e.target.matches('.ops span')){e.target.parentNode.querySelectorAll('span').forEach(s=>s.classList.remove('sel'));e.target.classList.add('sel')}});
+function sel(n,t){document.getElementById('sum').textContent='Chambre '+n+' · 3 nuits';document.getElementById('tot').textContent=t+' $';document.getElementById('dep').textContent=(t/2)+' $';go(1)}
+go(0)
+</script></body></html>
