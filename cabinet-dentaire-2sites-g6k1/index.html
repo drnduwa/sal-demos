@@ -1,0 +1,55 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cabinet dentaire — 2 sites — Prototype Swazi Appli Lab</title>
+<style>
+:root{--c:#7c3aed;--bg:#f4f5f7;--ink:#1f2937;--mut:#6b7280}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+.app{max-width:440px;margin:0 auto;min-height:100vh;background:var(--bg);padding-bottom:78px;position:relative}
+header{background:var(--c);color:#fff;padding:14px 16px 12px}header .t{font-weight:700;font-size:17px}header .s{font-size:12px;opacity:.85}
+.badge{display:inline-block;background:rgba(255,255,255,.2);border-radius:10px;padding:2px 8px;font-size:11px;margin-top:6px}
+.screen{display:none;padding:14px}.screen.on{display:block}
+h2{font-size:16px;margin:4px 0 10px}.card{background:#fff;border-radius:12px;padding:12px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.07)}
+label{display:block;font-size:12px;color:var(--mut);margin:8px 0 3px}input,select,textarea{width:100%;padding:9px;border:1px solid #d1d5db;border-radius:8px;font:inherit;background:#fff}
+.btn{display:block;width:100%;background:var(--c);color:#fff;border:0;border-radius:10px;padding:12px;font-weight:600;font-size:15px;margin-top:12px;cursor:pointer}
+.btn.alt{background:#fff;color:var(--c);border:2px solid var(--c)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px}.mut{color:var(--mut);font-size:12px}
+.st{font-size:11px;padding:3px 8px;border-radius:10px;background:#e5e7eb;white-space:nowrap}.st.g{background:#dcfce7;color:#166534}.st.o{background:#fef3c7;color:#92400e}.st.b{background:#dbeafe;color:#1e40af}.st.r{background:#fee2e2;color:#991b1b}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.slot{border:1px solid #d1d5db;border-radius:8px;padding:8px 0;text-align:center;font-size:13px;background:#fff;cursor:pointer}.slot.x{opacity:.35;text-decoration:line-through;pointer-events:none}.slot.sel{background:var(--c);color:#fff;border-color:var(--c)}
+.kpi{display:grid;grid-template-columns:1fr 1fr;gap:8px}.kpi .card{text-align:center}.kpi b{display:block;font-size:22px;color:var(--c)}
+.tl{border-left:2px solid var(--c);margin-left:6px;padding-left:12px}.tl div{margin-bottom:8px;font-size:13px}
+.seg{display:flex;gap:6px}.seg button{flex:1;padding:9px;border-radius:8px;border:1px solid var(--c);background:#fff;color:var(--c);font-weight:600}.seg button.on{background:var(--c);color:#fff}
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:440px;background:#fff;display:flex;border-top:1px solid #e5e7eb}
+nav button{flex:1;background:none;border:0;padding:9px 2px 10px;font-size:11px;color:var(--mut)}nav button span{display:block;font-size:19px}nav button.on{color:var(--c);font-weight:700}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#111827;color:#fff;padding:10px 14px;border-radius:10px;font-size:13px;display:none;max-width:90%;z-index:9}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:flex-end;justify-content:center;z-index:8}.modal .sheet{background:#fff;width:100%;max-width:440px;border-radius:16px 16px 0 0;padding:16px}
+.foot{font-size:11px;color:var(--mut);text-align:center;padding:8px 14px 16px}
+.bar{height:8px;border-radius:4px;background:#e5e7eb;overflow:hidden;margin-top:4px}.bar i{display:block;height:100%;background:var(--c)}
+</style></head><body><div class="app">
+<header><div class="t">Cabinet dentaire — 2 sites</div><div class="s">Lubumbashi & Kolwezi · Créneaux réels · Dossier partagé</div><div class="badge">Prototype — Swazi Appli Lab SARL · données de démonstration</div></header>
+
+<section class="screen" id="s1"><h2>Prendre rendez-vous</h2><div class="card"><label>Site</label><div class="seg"><button data-v="Lubumbashi" class="on">Lubumbashi</button><button data-v="Kolwezi">Kolwezi</button></div>
+<label>Dentiste</label><select id="dent"></select><label>Jour</label><select id="jr"><option>Lundi 9 novembre</option><option>Mardi 10 novembre</option><option>Mercredi 11 novembre</option></select>
+<label>Créneaux libres</label><div class="grid" id="g"><div class="slot">08:30</div><div class="slot x">09:00</div><div class="slot">09:30</div><div class="slot x">10:30</div><div class="slot">11:00</div><div class="slot">14:00</div><div class="slot x">14:30</div><div class="slot">15:30</div><div class="slot">16:00</div></div><label>Motif</label><select id="mo"><option>Consultation</option><option>Douleur / urgence</option><option>Détartrage</option><option>Prothèse</option></select>
+<button class="btn" onclick="book()">Réserver ce créneau</button></div></section>
+<section class="screen" id="s2"><h2>Mes rendez-vous</h2><div id="mr"><div class="card"><div class="row"><b>Contrôle — 14 déc. 10:00</b><span class="st b">Kolwezi</span></div><div class="mut">Dentiste B · rappel 24 h avant par WhatsApp</div></div></div>
+<div class="card"><b>Rappel (aperçu)</b><div style="background:#dcf8c6;border-radius:10px;padding:10px;margin-top:8px;font-size:13px">Rappel : rendez-vous demain, site de Lubumbashi. Répondez 1 pour confirmer, 2 pour déplacer.</div></div></section>
+<section class="screen" id="s3"><h2>Dossier patient partagé</h2><div class="card"><b>Patient Démo</b><div class="mut">Visible à Lubumbashi et à Kolwezi · aucune allergie</div></div>
+<div class="card"><b>Historique</b><div class="tl"><div>Lubumbashi · 03/06 · Détartrage</div><div>Kolwezi · 22/08 · Soin carie 46</div><div>Lubumbashi · à venir · Contrôle</div></div></div>
+<div class="card"><b>Note clinique</b><textarea id="nt" rows="2">Sensibilité 46 à surveiller.</textarea><button class="btn" onclick="toast('Note enregistrée — visible sur les 2 sites')">Enregistrer</button></div></section>
+<section class="screen" id="s4"><h2>Réception — aujourd'hui</h2><div class="seg" id="rs"><button class="on" onclick="rec('L')">Lubumbashi</button><button onclick="rec('K')">Kolwezi</button></div><div class="kpi" style="margin-top:10px"><div class="card"><b id="kr">9</b><span class="mut">RDV</span></div><div class="card"><b id="ka">1</b><span class="mut">absence</span></div></div><div id="rl"></div></section>
+<div class="foot">Prototype réalisé par Swazi Appli Lab SARL pour Cabinet Dentaire du Golf (Lubumbashi & Kolwezi). Données fictives.</div>
+<nav><button data-t="s1"><span>📅</span>RDV</button><button data-t="s2"><span>🔔</span>Mes RDV</button><button data-t="s3"><span>🦷</span>Dossier</button><button data-t="s4"><span>🏥</span>Réception</button></nav></div>
+<div class="toast" id="toast"></div>
+
+<script>
+function go(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id==id));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t==id));window.scrollTo(0,0)}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>go(b.dataset.t));
+function toast(m){var t=document.getElementById('toast');t.textContent=m;t.style.display='block';clearTimeout(window._tt);window._tt=setTimeout(()=>t.style.display='none',2800)}
+document.querySelectorAll('.slot').forEach(s=>s.onclick=()=>{s.parentNode.querySelectorAll('.slot').forEach(x=>x.classList.remove('sel'));s.classList.add('sel')});
+document.querySelectorAll('.seg').forEach(g=>g.querySelectorAll('button').forEach(b=>b.onclick=()=>{g.querySelectorAll('button').forEach(x=>x.classList.remove('on'));b.classList.add('on');if(window.segChange)segChange(b.dataset.v)}));
+var site='Lubumbashi';var D={Lubumbashi:['Dentiste A','Dentiste C'],Kolwezi:['Dentiste B','Dentiste D']};function fill(){dent.innerHTML=D[site].map(x=>'<option>'+x+'</option>').join('')}
+window.segChange=v=>{if(D[v]){site=v;fill()}};fill();
+var R={L:[['08:30','Consultation','g','Arrivé'],['10:00','Prothèse','b','Confirmé'],['11:00','Urgence','o','En attente']],K:[['09:00','Détartrage','g','Arrivé'],['14:00','Contrôle','r','Absent']]};
+function rec(s){rl.innerHTML=R[s].map(r=>'<div class="card"><div class="row"><span>'+r[0]+' · '+r[1]+'</span><span class="st '+r[2]+'">'+r[3]+'</span></div></div>').join('');kr.textContent=s=='L'?9:6;ka.textContent=s=='L'?0:1}rec('L');
+function book(){var s=document.querySelector('#g .slot.sel');if(!s){toast('Choisissez un créneau');return}var d=document.createElement('div');d.className='card';d.innerHTML='<div class="row"><b>'+mo.value+' — '+jr.value+' '+s.textContent+'</b><span class="st g">'+site+'</span></div><div class="mut">'+dent.value+' · confirmé</div>';mr.prepend(d);R[site[0]].push([s.textContent,mo.value,'b','Nouveau']);s.classList.add('x');toast('Rendez-vous confirmé — '+site);go('s2')}
+go('s1');
+</script></body></html>
