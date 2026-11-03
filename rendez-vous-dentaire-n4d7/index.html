@@ -1,0 +1,54 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rendez-vous dentaire en ligne — Prototype Swazi Appli Lab</title>
+<style>
+:root{--c:#0d9488;--bg:#f4f5f7;--ink:#1f2937;--mut:#6b7280}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+.app{max-width:440px;margin:0 auto;min-height:100vh;background:var(--bg);padding-bottom:78px;position:relative}
+header{background:var(--c);color:#fff;padding:14px 16px 12px}header .t{font-weight:700;font-size:17px}header .s{font-size:12px;opacity:.85}
+.badge{display:inline-block;background:rgba(255,255,255,.2);border-radius:10px;padding:2px 8px;font-size:11px;margin-top:6px}
+.screen{display:none;padding:14px}.screen.on{display:block}
+h2{font-size:16px;margin:4px 0 10px}.card{background:#fff;border-radius:12px;padding:12px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.07)}
+label{display:block;font-size:12px;color:var(--mut);margin:8px 0 3px}input,select,textarea{width:100%;padding:9px;border:1px solid #d1d5db;border-radius:8px;font:inherit;background:#fff}
+.btn{display:block;width:100%;background:var(--c);color:#fff;border:0;border-radius:10px;padding:12px;font-weight:600;font-size:15px;margin-top:12px;cursor:pointer}
+.btn.alt{background:#fff;color:var(--c);border:2px solid var(--c)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px}.mut{color:var(--mut);font-size:12px}
+.st{font-size:11px;padding:3px 8px;border-radius:10px;background:#e5e7eb;white-space:nowrap}.st.g{background:#dcfce7;color:#166534}.st.o{background:#fef3c7;color:#92400e}.st.b{background:#dbeafe;color:#1e40af}.st.r{background:#fee2e2;color:#991b1b}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.slot{border:1px solid #d1d5db;border-radius:8px;padding:8px 0;text-align:center;font-size:13px;background:#fff;cursor:pointer}.slot.x{opacity:.35;text-decoration:line-through;pointer-events:none}.slot.sel{background:var(--c);color:#fff;border-color:var(--c)}
+.kpi{display:grid;grid-template-columns:1fr 1fr;gap:8px}.kpi .card{text-align:center}.kpi b{display:block;font-size:22px;color:var(--c)}
+.tl{border-left:2px solid var(--c);margin-left:6px;padding-left:12px}.tl div{margin-bottom:8px;font-size:13px}
+.seg{display:flex;gap:6px}.seg button{flex:1;padding:9px;border-radius:8px;border:1px solid var(--c);background:#fff;color:var(--c);font-weight:600}.seg button.on{background:var(--c);color:#fff}
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:440px;background:#fff;display:flex;border-top:1px solid #e5e7eb}
+nav button{flex:1;background:none;border:0;padding:9px 2px 10px;font-size:11px;color:var(--mut)}nav button span{display:block;font-size:19px}nav button.on{color:var(--c);font-weight:700}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#111827;color:#fff;padding:10px 14px;border-radius:10px;font-size:13px;display:none;max-width:90%;z-index:9}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:flex-end;justify-content:center;z-index:8}.modal .sheet{background:#fff;width:100%;max-width:440px;border-radius:16px 16px 0 0;padding:16px}
+.foot{font-size:11px;color:var(--mut);text-align:center;padding:8px 14px 16px}
+.bar{height:8px;border-radius:4px;background:#e5e7eb;overflow:hidden;margin-top:4px}.bar i{display:block;height:100%;background:var(--c)}
+</style></head><body><div class="app">
+<header><div class="t">Rendez-vous dentaire en ligne</div><div class="s">Créneaux libres · Confirmation · Rappel WhatsApp · Dossier patient</div><div class="badge">Prototype — Swazi Appli Lab SARL · données de démonstration</div></header>
+
+<section class="screen" id="s1"><h2>Prendre rendez-vous</h2><div class="card"><label>Soin</label><select id="soin"><option>Consultation / contrôle</option><option>Détartrage</option><option>Soin de carie</option><option>Extraction</option><option>Blanchiment</option><option>Orthodontie (avis)</option></select>
+<label>Jour</label><div class="seg"><button data-v="Lun 9 nov." class="on">Lun 9</button><button data-v="Mar 10 nov.">Mar 10</button><button data-v="Mer 11 nov.">Mer 11</button></div>
+<label>Créneaux libres</label><div class="grid" id="g"><div class="slot">08:30</div><div class="slot x">09:00</div><div class="slot">09:30</div><div class="slot x">10:30</div><div class="slot">11:00</div><div class="slot">14:00</div><div class="slot x">14:30</div><div class="slot">15:30</div><div class="slot">16:00</div></div>
+<label>Nom</label><input id="nm" value="Patient Démo"><label>Téléphone WhatsApp</label><input value="+243 81 000 0000">
+<button class="btn" onclick="book()">Confirmer le rendez-vous</button></div></section>
+<section class="screen" id="s2"><h2>Confirmation</h2><div class="card"><div class="row"><b id="cf">Consultation — Lun 9 nov. 09:30</b><span class="st g">Confirmé</span></div><div class="mut">Référence NSC-2026-0412</div></div>
+<div class="card"><b>Rappel automatique (aperçu)</b><div style="background:#dcf8c6;border-radius:10px;padding:10px;margin-top:8px;font-size:13px">Bonjour, rappel de votre rendez-vous demain à 09:30. Répondez 1 pour confirmer, 2 pour déplacer.</div><div class="mut" style="margin-top:6px">Envoyé la veille à 18h00 · SMS si pas de WhatsApp</div></div>
+<button class="btn alt" onclick="go('s1')">Déplacer le rendez-vous</button><button class="btn alt" onclick="toast('Rendez-vous annulé, créneau libéré')">Annuler</button></section>
+<section class="screen" id="s3"><h2>Dossier patient</h2><div class="card"><b>Patient Démo</b><div class="mut">Allergies : aucune · Dernière visite : 12/08/2026</div></div>
+<div class="card"><b>Plan de traitement</b><div class="tl"><div>✅ Détartrage — 12/08</div><div>🟠 Soin carie 36 — à planifier</div><div>⚪ Contrôle 6 mois — févr. 2027</div></div></div>
+<div class="card"><b>Devis (démo)</b><div class="row"><span>Soin carie 36</span><b>60 $</b></div><div class="row"><span>Radio rétro-alvéolaire</span><b>15 $</b></div><hr><div class="row"><b>Total</b><b>75 $</b></div><button class="btn" onclick="toast('Devis accepté — proposer un créneau')">Accepter le devis</button></div></section>
+<section class="screen" id="s4"><h2>Agenda du cabinet — Lun 9 nov.</h2><div class="kpi"><div class="card"><b id="kc">7</b><span class="mut">RDV du jour</span></div><div class="card"><b>1</b><span class="mut">absence</span></div></div><div id="ag">
+<div class="card"><div class="row"><span>09:00 · Contrôle · M. K.</span><span class="st g">Arrivé</span></div></div><div class="card"><div class="row"><span>10:30 · Extraction · Mme L.</span><span class="st b">Confirmé</span></div></div><div class="card"><div class="row"><span>14:30 · Détartrage · M. T.</span><span class="st r">Absent</span></div></div></div></section>
+<div class="foot">Prototype réalisé par Swazi Appli Lab SARL pour New Smile Clinic (Lubumbashi). Données fictives.</div>
+<nav><button data-t="s1"><span>📅</span>RDV</button><button data-t="s2"><span>🔔</span>Confirmation</button><button data-t="s3"><span>🦷</span>Dossier</button><button data-t="s4"><span>🗓️</span>Agenda</button></nav></div>
+<div class="toast" id="toast"></div>
+
+<script>
+function go(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id==id));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t==id));window.scrollTo(0,0)}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>go(b.dataset.t));
+function toast(m){var t=document.getElementById('toast');t.textContent=m;t.style.display='block';clearTimeout(window._tt);window._tt=setTimeout(()=>t.style.display='none',2800)}
+document.querySelectorAll('.slot').forEach(s=>s.onclick=()=>{s.parentNode.querySelectorAll('.slot').forEach(x=>x.classList.remove('sel'));s.classList.add('sel')});
+document.querySelectorAll('.seg').forEach(g=>g.querySelectorAll('button').forEach(b=>b.onclick=()=>{g.querySelectorAll('button').forEach(x=>x.classList.remove('on'));b.classList.add('on');if(window.segChange)segChange(b.dataset.v)}));
+var day='Lun 9 nov.';window.segChange=v=>day=v;function book(){var s=document.querySelector('#g .slot.sel');if(!s){toast('Choisissez un créneau');return}var so=document.getElementById('soin').value;cf.textContent=so+' — '+day+' '+s.textContent;var d=document.createElement('div');d.className='card';d.innerHTML='<div class="row"><span>'+s.textContent+' · '+so+' · '+nm.value+'</span><span class="st b">Nouveau</span></div>';ag.prepend(d);kc.textContent=+kc.textContent+1;s.classList.add('x');toast('Rendez-vous confirmé — rappel programmé');go('s2')}
+go('s1');
+</script></body></html>
