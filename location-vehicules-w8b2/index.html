@@ -1,0 +1,62 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Location de véhicules en ligne — Prototype Swazi Appli Lab</title>
+<style>
+:root{--c:#1d4ed8;--bg:#f4f5f7;--ink:#1f2937;--mut:#6b7280}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+.app{max-width:440px;margin:0 auto;min-height:100vh;background:var(--bg);padding-bottom:78px;position:relative}
+header{background:var(--c);color:#fff;padding:14px 16px 12px}header .t{font-weight:700;font-size:17px}header .s{font-size:12px;opacity:.85}
+.badge{display:inline-block;background:rgba(255,255,255,.2);border-radius:10px;padding:2px 8px;font-size:11px;margin-top:6px}
+.screen{display:none;padding:14px}.screen.on{display:block}
+h2{font-size:16px;margin:4px 0 10px}.card{background:#fff;border-radius:12px;padding:12px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.07)}
+label{display:block;font-size:12px;color:var(--mut);margin:8px 0 3px}input,select,textarea{width:100%;padding:9px;border:1px solid #d1d5db;border-radius:8px;font:inherit;background:#fff}
+.btn{display:block;width:100%;background:var(--c);color:#fff;border:0;border-radius:10px;padding:12px;font-weight:600;font-size:15px;margin-top:12px;cursor:pointer}
+.btn.alt{background:#fff;color:var(--c);border:2px solid var(--c)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px}.mut{color:var(--mut);font-size:12px}
+.st{font-size:11px;padding:3px 8px;border-radius:10px;background:#e5e7eb;white-space:nowrap}.st.g{background:#dcfce7;color:#166534}.st.o{background:#fef3c7;color:#92400e}.st.b{background:#dbeafe;color:#1e40af}.st.r{background:#fee2e2;color:#991b1b}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.slot{border:1px solid #d1d5db;border-radius:8px;padding:8px 0;text-align:center;font-size:13px;background:#fff;cursor:pointer}.slot.x{opacity:.35;text-decoration:line-through;pointer-events:none}.slot.sel{background:var(--c);color:#fff;border-color:var(--c)}
+.kpi{display:grid;grid-template-columns:1fr 1fr;gap:8px}.kpi .card{text-align:center}.kpi b{display:block;font-size:22px;color:var(--c)}
+.tl{border-left:2px solid var(--c);margin-left:6px;padding-left:12px}.tl div{margin-bottom:8px;font-size:13px}
+.seg{display:flex;gap:6px}.seg button{flex:1;padding:9px;border-radius:8px;border:1px solid var(--c);background:#fff;color:var(--c);font-weight:600}.seg button.on{background:var(--c);color:#fff}
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:440px;background:#fff;display:flex;border-top:1px solid #e5e7eb}
+nav button{flex:1;background:none;border:0;padding:9px 2px 10px;font-size:11px;color:var(--mut)}nav button span{display:block;font-size:19px}nav button.on{color:var(--c);font-weight:700}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#111827;color:#fff;padding:10px 14px;border-radius:10px;font-size:13px;display:none;max-width:90%;z-index:9}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:flex-end;justify-content:center;z-index:8}.modal .sheet{background:#fff;width:100%;max-width:440px;border-radius:16px 16px 0 0;padding:16px}
+.foot{font-size:11px;color:var(--mut);text-align:center;padding:8px 14px 16px}
+.bar{height:8px;border-radius:4px;background:#e5e7eb;overflow:hidden;margin-top:4px}.bar i{display:block;height:100%;background:var(--c)}
+</style></head><body><div class="app">
+<header><div class="t">Location de véhicules en ligne</div><div class="s">Disponibilités · Réservation · Caution payée · État des lieux</div><div class="badge">Prototype — Swazi Appli Lab SARL · données de démonstration</div></header>
+
+<section class="screen" id="s1"><h2>Véhicules disponibles</h2>
+<div class="card"><div class="row"><b>Toyota Land Cruiser Prado</b><span class="st g">Disponible</span></div><div class="mut">4x4 · 7 places · avec ou sans chauffeur · 120 $/jour (démo)</div><div class="grid" style="margin-top:8px"><div class="slot">Lu 9</div><div class="slot x">Ma 10</div><div class="slot">Me 11</div><div class="slot">Je 12</div><div class="slot">Ve 13</div><div class="slot x">Sa 14</div></div><button class="btn" onclick="pick('Toyota Land Cruiser Prado',120)">Réserver</button></div>
+<div class="card"><div class="row"><b>Toyota Hilux double cabine</b><span class="st o">Libre dès le 12</span></div><div class="mut">Pick-up · site minier · 95 $/jour (démo)</div><button class="btn" onclick="pick('Toyota Hilux double cabine',95)">Réserver</button></div>
+<div class="card"><div class="row"><b>Toyota Corolla</b><span class="st g">Disponible</span></div><div class="mut">Berline · ville · 60 $/jour (démo)</div><button class="btn" onclick="pick('Toyota Corolla',60)">Réserver</button></div></section>
+<section class="screen" id="s2"><h2>Réservation</h2><div class="card"><b id="veh">Toyota Land Cruiser Prado</b>
+<label>Du</label><input type="date" id="d1" value="2026-11-11"><label>Au</label><input type="date" id="d2" value="2026-11-13">
+<label>Formule</label><div class="seg"><button data-v="0" class="on">Sans chauffeur</button><button data-v="25">Avec chauffeur</button></div>
+<hr><div class="row"><span>Location</span><b id="loc">240 $</b></div><div class="row"><span>Caution (remboursable)</span><b>300 $</b></div><div class="row"><b>À payer maintenant</b><b id="tot">540 $</b></div>
+<button class="btn" onclick="openPay()">Payer avec Zola Money Trans</button><div class="mut" style="margin-top:6px">Carte, M-Pesa, Orange Money, Airtel Money</div></div></section>
+<section class="screen" id="s3"><h2>État des lieux — départ</h2><div class="card"><div class="mut">Contrat WBC-2026-118 · Land Cruiser Prado · km 48 210</div>
+<label><input type="checkbox" checked style="width:auto"> Carrosserie avant OK</label><label><input type="checkbox" checked style="width:auto"> Pneus + roue de secours</label><label><input type="checkbox" style="width:auto"> Rayure portière arrière droite (photo)</label>
+<label>Niveau carburant</label><select><option>Plein</option><option>3/4</option><option>1/2</option></select><label>Photos (4 angles)</label><input type="file" accept="image/*" multiple>
+<label>Signature du client</label><canvas id="sig" style="width:100%;height:90px;border:1px dashed #9ca3af;border-radius:8px;background:#fff"></canvas>
+<button class="btn" onclick="toast('Contrat et état des lieux signés — PDF envoyé au client')">Valider et signer</button></div></section>
+<section class="screen" id="s4"><h2>Mon espace client</h2><div class="card"><div class="row"><b>Location en cours</b><span class="st b" id="cur">Confirmée</span></div><div class="mut">Land Cruiser Prado · retour le 13/11 à 18h00</div><button class="btn alt" onclick="toast('Demande de prolongation envoyée')">Prolonger d'un jour</button></div>
+<div class="card"><b>Documents</b><div class="row"><span>Contrat WBC-2026-118.pdf</span><span class="st">PDF</span></div><div class="row"><span>Reçu Zola — caution 300 $</span><span class="st g">Payé</span></div></div>
+<div class="card"><b>Historique</b><div class="row"><span>Hilux · 3 jours · sept.</span><span class="st g">Caution remboursée</span></div></div></section>
+<div class="foot">Prototype réalisé par Swazi Appli Lab SARL pour World Business Cars (Lubumbashi). Données fictives.</div>
+<nav><button data-t="s1"><span>🚙</span>Catalogue</button><button data-t="s2"><span>💳</span>Réserver</button><button data-t="s3"><span>📸</span>État des lieux</button><button data-t="s4"><span>👤</span>Mon espace</button></nav></div>
+<div class="toast" id="toast"></div>
+<div class="modal" id="pay"><div class="sheet"><b>Paiement Zola Money Trans</b><div class="mut">Montant : <span id="pm">540 $</span></div><div class="grid" style="margin-top:10px"><div class="slot sel">Carte</div><div class="slot">M-Pesa</div><div class="slot">Orange Money</div><div class="slot">Airtel Money</div></div><label>Numéro / carte</label><input value="+243 97 000 0000"><button class="btn" onclick="paid()">Confirmer le paiement</button><button class="btn alt" onclick="document.getElementById('pay').style.display='none'">Annuler</button></div></div>
+<script>
+function go(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id==id));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t==id));window.scrollTo(0,0)}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>go(b.dataset.t));
+function toast(m){var t=document.getElementById('toast');t.textContent=m;t.style.display='block';clearTimeout(window._tt);window._tt=setTimeout(()=>t.style.display='none',2800)}
+document.querySelectorAll('.slot').forEach(s=>s.onclick=()=>{s.parentNode.querySelectorAll('.slot').forEach(x=>x.classList.remove('sel'));s.classList.add('sel')});
+document.querySelectorAll('.seg').forEach(g=>g.querySelectorAll('button').forEach(b=>b.onclick=()=>{g.querySelectorAll('button').forEach(x=>x.classList.remove('on'));b.classList.add('on');if(window.segChange)segChange(b.dataset.v)}));
+var rate=120,drv=0;function calc(){var a=new Date(d1.value),b=new Date(d2.value);var n=Math.max(1,Math.round((b-a)/864e5));var l=n*(rate+drv);loc.textContent=l+' $';tot.textContent=(l+300)+' $';pm.textContent=(l+300)+' $'}
+function pick(v,r){veh.textContent=v;rate=r;calc();go('s2')}d1.onchange=calc;d2.onchange=calc;window.segChange=v=>{drv=+v;calc()};
+function openPay(){document.getElementById('pay').style.display='flex'}function paid(){document.getElementById('pay').style.display='none';toast('Paiement reçu via Zola Money Trans — réservation confirmée');go('s4')}
+var c=document.getElementById('sig'),x=c.getContext('2d'),dn=false;c.width=c.offsetWidth||360;c.height=90;function p(e){var r=c.getBoundingClientRect(),t=e.touches?e.touches[0]:e;return[t.clientX-r.left,t.clientY-r.top]}
+c.onpointerdown=e=>{dn=true;x.beginPath();x.moveTo(...p(e))};c.onpointermove=e=>{if(dn){x.lineTo(...p(e));x.stroke()}};c.onpointerup=()=>dn=false;calc();
+go('s1');
+</script></body></html>
