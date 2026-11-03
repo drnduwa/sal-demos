@@ -1,0 +1,61 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Demandes de service — clients miniers — Prototype Swazi Appli Lab</title>
+<style>
+:root{--c:#c2410c;--bg:#f4f5f7;--ink:#1f2937;--mut:#6b7280}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+.app{max-width:440px;margin:0 auto;min-height:100vh;background:var(--bg);padding-bottom:78px;position:relative}
+header{background:var(--c);color:#fff;padding:14px 16px 12px}header .t{font-weight:700;font-size:17px}header .s{font-size:12px;opacity:.85}
+.badge{display:inline-block;background:rgba(255,255,255,.2);border-radius:10px;padding:2px 8px;font-size:11px;margin-top:6px}
+.screen{display:none;padding:14px}.screen.on{display:block}
+h2{font-size:16px;margin:4px 0 10px}.card{background:#fff;border-radius:12px;padding:12px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.07)}
+label{display:block;font-size:12px;color:var(--mut);margin:8px 0 3px}input,select,textarea{width:100%;padding:9px;border:1px solid #d1d5db;border-radius:8px;font:inherit;background:#fff}
+.btn{display:block;width:100%;background:var(--c);color:#fff;border:0;border-radius:10px;padding:12px;font-weight:600;font-size:15px;margin-top:12px;cursor:pointer}
+.btn.alt{background:#fff;color:var(--c);border:2px solid var(--c)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px}.mut{color:var(--mut);font-size:12px}
+.st{font-size:11px;padding:3px 8px;border-radius:10px;background:#e5e7eb;white-space:nowrap}.st.g{background:#dcfce7;color:#166534}.st.o{background:#fef3c7;color:#92400e}.st.b{background:#dbeafe;color:#1e40af}.st.r{background:#fee2e2;color:#991b1b}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.slot{border:1px solid #d1d5db;border-radius:8px;padding:8px 0;text-align:center;font-size:13px;background:#fff;cursor:pointer}.slot.x{opacity:.35;text-decoration:line-through;pointer-events:none}.slot.sel{background:var(--c);color:#fff;border-color:var(--c)}
+.kpi{display:grid;grid-template-columns:1fr 1fr;gap:8px}.kpi .card{text-align:center}.kpi b{display:block;font-size:22px;color:var(--c)}
+.tl{border-left:2px solid var(--c);margin-left:6px;padding-left:12px}.tl div{margin-bottom:8px;font-size:13px}
+.seg{display:flex;gap:6px}.seg button{flex:1;padding:9px;border-radius:8px;border:1px solid var(--c);background:#fff;color:var(--c);font-weight:600}.seg button.on{background:var(--c);color:#fff}
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:440px;background:#fff;display:flex;border-top:1px solid #e5e7eb}
+nav button{flex:1;background:none;border:0;padding:9px 2px 10px;font-size:11px;color:var(--mut)}nav button span{display:block;font-size:19px}nav button.on{color:var(--c);font-weight:700}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#111827;color:#fff;padding:10px 14px;border-radius:10px;font-size:13px;display:none;max-width:90%;z-index:9}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:flex-end;justify-content:center;z-index:8}.modal .sheet{background:#fff;width:100%;max-width:440px;border-radius:16px 16px 0 0;padding:16px}
+.foot{font-size:11px;color:var(--mut);text-align:center;padding:8px 14px 16px}
+.bar{height:8px;border-radius:4px;background:#e5e7eb;overflow:hidden;margin-top:4px}.bar i{display:block;height:100%;background:var(--c)}
+</style></head><body><div class="app">
+<header><div class="t">Demandes de service — clients miniers</div><div class="s">Maintenance · Charpente & tuyauterie · Revêtement · Génie civil · Main-d'œuvre</div><div class="badge">Prototype — Swazi Appli Lab SARL · données de démonstration</div></header>
+
+<section class="screen" id="s1"><h2>Nouvelle demande</h2><div class="card"><form id="f1">
+<label>Service</label><select id="sv"><option>Maintenance / réparation d'équipement</option><option>Charpente métallique & tuyauterie</option><option>Revêtement (lining & coating)</option><option>Terrassement & génie civil</option><option>Fourniture de main-d'œuvre qualifiée</option></select>
+<label>Site / mine</label><select id="site"><option>Site client A — Kolwezi</option><option>Site client B — Fungurume</option><option>Site client C — Likasi</option></select>
+<label>Priorité</label><div class="seg"><button type="button" data-v="Normale" class="on">Normale</button><button type="button" data-v="Urgente">Urgente</button><button type="button" data-v="Arrêt prod.">Arrêt prod.</button></div>
+<label>Date souhaitée</label><input type="date" id="dt" value="2026-11-10">
+<label>Description</label><textarea id="ds" rows="3">Fuite sur conduite de pulpe DN200, remplacement de 6 m + revêtement intérieur.</textarea>
+<label>Photos</label><input type="file" accept="image/*" multiple>
+<button class="btn" type="submit">Envoyer la demande</button></form></div></section>
+<section class="screen" id="s2"><h2>Mes demandes</h2><div id="list">
+<div class="card"><div class="row"><b>DS-1042 · Tuyauterie</b><span class="st o">Devis envoyé</span></div><div class="mut">Site client B · demandé le 28/10</div></div>
+<div class="card"><div class="row"><b>DS-1039 · Main-d'œuvre</b><span class="st b">En cours</span></div><div class="mut">8 soudeurs · Site client A · depuis le 21/10</div></div>
+<div class="card"><div class="row"><b>DS-1031 · Génie civil</b><span class="st g">Terminé</span></div><div class="mut">Dalle de pompe · rapport disponible</div></div></div></section>
+<section class="screen" id="s3"><h2>DS-1042 — Devis à approuver</h2><div class="card"><div class="tl"><div>✅ Reçue — 28/10 09:12</div><div>✅ Visite technique — 29/10</div><div>🟠 Devis envoyé — 30/10</div><div>⚪ Planifiée</div><div>⚪ Rapport de fin</div></div></div>
+<div class="card"><div class="row"><span>Main-d'œuvre (3 j × 4 pers.)</span><b>2 160 $</b></div><div class="row"><span>Tube acier DN200 + coudes</span><b>1 940 $</b></div><div class="row"><span>Revêtement intérieur</span><b>700 $</b></div><hr><div class="row"><b>Total (démo)</b><b>4 800 $</b></div><div class="mut">Équipe proposée : chef de chantier + 3 soudeurs · durée 3 jours</div>
+<button class="btn" id="ok3">Approuver en un clic</button><button class="btn alt" onclick="toast('Commentaire envoyé au chargé d\'affaires')">Demander une modification</button></div></section>
+<section class="screen" id="s4"><h2>Tableau de bord Sogesco</h2><div class="kpi"><div class="card"><b id="k1">14</b><span class="mut">demandes ouvertes</span></div><div class="card"><b>3</b><span class="mut">en retard</span></div><div class="card"><b>6</b><span class="mut">devis en attente</span></div><div class="card"><b>92 %</b><span class="mut">délais tenus (oct.)</span></div></div>
+<div class="card"><b>Par service</b><div class="mut">Maintenance</div><div class="bar"><i style="width:70%"></i></div><div class="mut">Tuyauterie</div><div class="bar"><i style="width:45%"></i></div><div class="mut">Main-d'œuvre</div><div class="bar"><i style="width:35%"></i></div><div class="mut">Génie civil</div><div class="bar"><i style="width:20%"></i></div></div>
+<div class="card"><b>Affectation</b><div class="row"><span>DS-1044 · Maintenance · Urgente</span><select style="width:46%"><option>Choisir…</option><option>Équipe Mutombo</option><option>Équipe Kalenga</option></select></div><button class="btn" onclick="toast('Équipe affectée et client notifié')">Affecter</button></div></section>
+<div class="foot">Prototype réalisé par Swazi Appli Lab SARL pour Sogesco SARL (Kolwezi). Données fictives.</div>
+<nav><button data-t="s1"><span>➕</span>Demande</button><button data-t="s2"><span>📋</span>Mes demandes</button><button data-t="s3"><span>🧾</span>Devis</button><button data-t="s4"><span>📊</span>Tableau</button></nav></div>
+<div class="toast" id="toast"></div>
+
+<script>
+function go(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id==id));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t==id));window.scrollTo(0,0)}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>go(b.dataset.t));
+function toast(m){var t=document.getElementById('toast');t.textContent=m;t.style.display='block';clearTimeout(window._tt);window._tt=setTimeout(()=>t.style.display='none',2800)}
+document.querySelectorAll('.slot').forEach(s=>s.onclick=()=>{s.parentNode.querySelectorAll('.slot').forEach(x=>x.classList.remove('sel'));s.classList.add('sel')});
+document.querySelectorAll('.seg').forEach(g=>g.querySelectorAll('button').forEach(b=>b.onclick=()=>{g.querySelectorAll('button').forEach(x=>x.classList.remove('on'));b.classList.add('on');if(window.segChange)segChange(b.dataset.v)}));
+var prio='Normale';window.segChange=v=>prio=v;var n=1045;
+document.getElementById('f1').onsubmit=e=>{e.preventDefault();var sv=document.getElementById('sv').value.split(' ')[0];var d=document.createElement('div');d.className='card';d.innerHTML='<div class="row"><b>DS-'+n+' · '+sv+'</b><span class="st">Reçue</span></div><div class="mut">'+document.getElementById('site').value+' · priorité '+prio+'</div>';document.getElementById('list').prepend(d);n++;document.getElementById('k1').textContent=+document.getElementById('k1').textContent+1;toast('Demande envoyée — accusé de réception immédiat');go('s2')};
+document.getElementById('ok3').onclick=()=>{toast('Devis approuvé — intervention planifiée');document.querySelector('#list .st.o').className='st b';document.querySelector('#list .st.b').textContent='Planifiée'}
+go('s1');
+</script></body></html>
