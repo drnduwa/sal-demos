@@ -1,0 +1,48 @@
+<!doctype html><html lang=fr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Rendez-vous Hôpital — Prototype SAL</title>
+<style>:root{--c:#0b6e8a}*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#eef1f5;color:#1c2430}
+.app{max-width:430px;margin:0 auto;min-height:100vh;background:#fff;position:relative;padding-bottom:78px}
+header{background:var(--c);color:#fff;padding:14px 16px 12px}header h1{font-size:17px;margin:0}header p{margin:3px 0 0;font-size:12px;opacity:.9}
+.proto{background:#fff7d6;color:#6b5400;font-size:11px;text-align:center;padding:5px 8px}
+section{display:none;padding:14px}section.on{display:block}h2{font-size:16px;margin:4px 0 10px;color:var(--c)}
+.card{border:1px solid #e1e6ee;border-radius:12px;padding:12px;margin-bottom:10px;background:#fff}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px}.muted{color:#6b7685;font-size:12px}
+.badge{display:inline-block;font-size:11px;padding:3px 8px;border-radius:20px;background:#e7eef9;color:#1f4e79;white-space:nowrap}
+.b-ok{background:#e3f5e9;color:#1d7a3e}.b-w{background:#fff1d6;color:#8a5a00}.b-r{background:#fde4e4;color:#a12626}
+label{display:block;font-size:12px;color:#4a5563;margin:9px 0 3px}input,select,textarea{width:100%;padding:10px;border:1px solid #cfd6e0;border-radius:9px;font-size:14px;font-family:inherit}
+.btn{display:block;width:100%;margin-top:12px;padding:12px;border:0;border-radius:10px;background:var(--c);color:#fff;font-size:15px;font-weight:bold;cursor:pointer}
+.chips{display:flex;flex-wrap:wrap;gap:6px}.chips button{border:1px solid #cfd6e0;background:#fff;border-radius:18px;padding:7px 11px;font-size:13px;cursor:pointer}
+.chips button.sel{background:var(--c);color:#fff;border-color:var(--c)}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:8px}.kpi{background:#f4f6fa;border-radius:10px;padding:10px}.kpi b{display:block;font-size:20px;color:var(--c)}
+.tl{border-left:3px solid #d5dbe5;margin-left:6px;padding-left:12px}.tl div{position:relative;margin-bottom:10px;font-size:13px}.tl div:before{content:'';position:absolute;left:-19px;top:3px;width:11px;height:11px;border-radius:50%;background:#d5dbe5}.tl div.done:before{background:var(--c)}
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;display:flex;background:#fff;border-top:1px solid #e1e6ee}
+nav button{flex:1;border:0;background:none;padding:9px 2px 10px;font-size:11px;color:#6b7685;cursor:pointer}nav button span{display:block;font-size:19px}nav button.on{color:var(--c);font-weight:bold}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#1c2430;color:#fff;padding:10px 14px;border-radius:10px;font-size:13px;display:none;max-width:380px;z-index:9}
+.zola{border:2px dashed var(--c);border-radius:12px;padding:12px;margin-top:10px}.hide{display:none}
+.bar{height:8px;background:#e7ebf1;border-radius:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--c)}
+</style></head><body><div class=app><div class=proto>Prototype — Swazi Appli Lab SARL · données de démonstration</div>
+<header><h1>Rendez-vous Hôpital</h1><p>Prise de rendez-vous en ligne · Lubumbashi</p></header><section id=t0 class=on><h2>Choisir un service</h2><div class=chips id=svc><button class=sel>Cardiologie</button><button>Pédiatrie</button><button>Gynécologie</button><button>Dialyse</button><button>Imagerie</button><button>Laboratoire</button></div>
+<div class=card style="margin-top:12px"><div class=row><b>Dr K. Mbuyi</b><span class="badge b-ok">3 créneaux aujourd'hui</span></div><div class=muted>Cardiologie · consultation 40 $</div></div>
+<div class=card><div class=row><b>Dr A. Kalenga</b><span class="badge b-w">Demain</span></div><div class=muted>Cardiologie · consultation 40 $</div></div>
+<div class=card><div class=row><b>Urgences 24 h/24</b><span class=badge>Appel direct</span></div><div class=muted>Numéro unique affiché correctement sur mobile</div></div>
+<button class=btn data-go=t1>Choisir un créneau</button></section><section id=t1><h2>Créneaux libres — Dr K. Mbuyi</h2><div class=muted>Jeudi 12 novembre</div><div class=chips style="margin:8px 0"><button>08:30</button><button>09:10</button><button class=sel>10:30</button><button>14:00</button><button>15:20</button></div>
+<form data-pay="#payz" data-pre="RDV-"><label>Nom du patient</label><input required value="Mme Ilunga Grâce"><label>Téléphone</label><input required value="+243 81 000 0000"><label>Assurance</label><select><option>Sans assurance</option><option>Assurance A</option><option>Assurance B</option><option>Employeur</option></select>
+<button class=btn>Confirmer et payer l'acompte</button></form><div id=payz class=hide><div class=zola><div class=payform><b>Paiement Zola Money Trans</b><div class=muted>Acompte de consultation : <b>20 $</b></div>
+<label>Moyen de paiement</label><div class=chips><button type=button>Carte</button><button type=button>M-Pesa</button><button type=button>Orange Money</button><button type=button>Airtel Money</button></div>
+<button class="btn paynow" type=button>Payer 20 $</button></div>
+<div class="receipt hide"><b>✅ Paiement reçu</b><div class=muted>Réf. <span class=ref></span> · via <span class=via></span> · reçu envoyé par SMS et e-mail</div></div></div><div class=card style="margin-top:10px"><b>Ticket</b><div class=muted>Rendez-vous <span class=ref></span> · Jeu 12 nov · 10:30 · présentez ce numéro à l'accueil. Rappel SMS la veille.</div></div></div></section><section id=t2><h2>Mes rendez-vous</h2><div class=card><div class=row><b>Cardiologie</b><span class="badge b-ok">Confirmé</span></div><div class=muted>Jeu 12 nov · 10:30 · acompte payé</div></div>
+<div class=card><div class=row><b>Laboratoire — bilan</b><span class="badge b-w">À payer</span></div><div class=muted>Ven 13 nov · 07:30</div></div><div class=card><div class=row><b>Pédiatrie</b><span class=badge>Terminé</span></div><div class=muted>28 oct · ordonnance disponible</div></div></section><section id=t3><h2>Tableau de bord accueil</h2><div class=kpis><div class=kpi><b>46</b>RDV aujourd'hui</div><div class=kpi><b>31</b>Acomptes reçus</div><div class=kpi><b>9</b>Patients arrivés</div><div class=kpi><b>620 $</b>Encaissé (Zola)</div></div>
+<h2 style="margin-top:14px">Par service</h2><div class=card>Cardiologie<div class=bar><i style="width:80%"></i></div></div><div class=card>Pédiatrie<div class=bar><i style="width:55%"></i></div></div><div class=card>Dialyse<div class=bar><i style="width:90%"></i></div></div></section><nav><button data-t=t0 class=on><span>🏥</span>Services</button><button data-t=t1><span>📅</span>Créneau</button><button data-t=t2><span>🧾</span>Mes RDV</button><button data-t=t3><span>📊</span>Accueil</button></nav><div class=toast></div></div><script>
+const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
+function go(t){$$('section').forEach(x=>x.classList.toggle('on',x.id==t));$$('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t==t));window.scrollTo(0,0)}
+$$('nav button').forEach(b=>b.onclick=()=>go(b.dataset.t));
+$$('[data-go]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.go)));
+function toast(m){const t=$('.toast');t.textContent=m;t.style.display='block';clearTimeout(window._t);window._t=setTimeout(()=>t.style.display='none',3200)}
+$$('.chips').forEach(c=>c.querySelectorAll('button').forEach(b=>b.onclick=()=>{if(!c.dataset.multi)c.querySelectorAll('button').forEach(x=>x.classList.remove('sel'));b.classList.toggle('sel');if(c.dataset.f){const v=b.textContent;$$(c.dataset.f+' .card').forEach(k=>k.style.display=(v=='Tous'||k.dataset.s==v)?'':'none')}}));
+let n=1042;
+$$('form').forEach(f=>f.onsubmit=e=>{e.preventDefault();n++;const ref=(f.dataset.pre||'REF-')+n;
+ if(f.dataset.add){const d=document.createElement('div');d.className='card';d.innerHTML='<div class=row><b>'+ref+'</b><span class="badge b-w">Nouvelle</span></div><div class=muted>'+(f.querySelector('[data-sum]')?f.querySelector('[data-sum]').value:'')+' · reçue à l\'instant</div>';$(f.dataset.add).prepend(d)}
+ if(f.dataset.pay){f.classList.add('hide');$(f.dataset.pay).classList.remove('hide');$$(f.dataset.pay+' .ref').forEach(x=>x.textContent=ref);}
+ else{toast((f.dataset.msg||'Enregistré')+' — n° '+ref);f.reset();if(f.dataset.next)setTimeout(()=>go(f.dataset.next),700)}});
+$$('.paynow').forEach(b=>b.onclick=()=>{const z=b.closest('.zola');const m=z.querySelector('.chips .sel');if(!m){toast('Choisissez un moyen de paiement');return}
+ z.querySelector('.payform').classList.add('hide');z.querySelector('.receipt').classList.remove('hide');z.querySelector('.via').textContent=m.textContent;toast('Paiement confirmé par Zola Money Trans')});
+</script></body></html>
