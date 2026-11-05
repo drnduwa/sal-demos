@@ -1,0 +1,44 @@
+<!doctype html><html lang=fr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Portail Clients Sous-traitance — Prototype SAL</title>
+<style>:root{--c:#2e7d32}*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#eef1f5;color:#1c2430}
+.app{max-width:430px;margin:0 auto;min-height:100vh;background:#fff;position:relative;padding-bottom:78px}
+header{background:var(--c);color:#fff;padding:14px 16px 12px}header h1{font-size:17px;margin:0}header p{margin:3px 0 0;font-size:12px;opacity:.9}
+.proto{background:#fff7d6;color:#6b5400;font-size:11px;text-align:center;padding:5px 8px}
+section{display:none;padding:14px}section.on{display:block}h2{font-size:16px;margin:4px 0 10px;color:var(--c)}
+.card{border:1px solid #e1e6ee;border-radius:12px;padding:12px;margin-bottom:10px;background:#fff}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px}.muted{color:#6b7685;font-size:12px}
+.badge{display:inline-block;font-size:11px;padding:3px 8px;border-radius:20px;background:#e7eef9;color:#1f4e79;white-space:nowrap}
+.b-ok{background:#e3f5e9;color:#1d7a3e}.b-w{background:#fff1d6;color:#8a5a00}.b-r{background:#fde4e4;color:#a12626}
+label{display:block;font-size:12px;color:#4a5563;margin:9px 0 3px}input,select,textarea{width:100%;padding:10px;border:1px solid #cfd6e0;border-radius:9px;font-size:14px;font-family:inherit}
+.btn{display:block;width:100%;margin-top:12px;padding:12px;border:0;border-radius:10px;background:var(--c);color:#fff;font-size:15px;font-weight:bold;cursor:pointer}
+.chips{display:flex;flex-wrap:wrap;gap:6px}.chips button{border:1px solid #cfd6e0;background:#fff;border-radius:18px;padding:7px 11px;font-size:13px;cursor:pointer}
+.chips button.sel{background:var(--c);color:#fff;border-color:var(--c)}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:8px}.kpi{background:#f4f6fa;border-radius:10px;padding:10px}.kpi b{display:block;font-size:20px;color:var(--c)}
+.tl{border-left:3px solid #d5dbe5;margin-left:6px;padding-left:12px}.tl div{position:relative;margin-bottom:10px;font-size:13px}.tl div:before{content:'';position:absolute;left:-19px;top:3px;width:11px;height:11px;border-radius:50%;background:#d5dbe5}.tl div.done:before{background:var(--c)}
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;display:flex;background:#fff;border-top:1px solid #e1e6ee}
+nav button{flex:1;border:0;background:none;padding:9px 2px 10px;font-size:11px;color:#6b7685;cursor:pointer}nav button span{display:block;font-size:19px}nav button.on{color:var(--c);font-weight:bold}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#1c2430;color:#fff;padding:10px 14px;border-radius:10px;font-size:13px;display:none;max-width:380px;z-index:9}
+.zola{border:2px dashed var(--c);border-radius:12px;padding:12px;margin-top:10px}.hide{display:none}
+.bar{height:8px;background:#e7ebf1;border-radius:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--c)}
+</style></head><body><div class=app><div class=proto>Prototype — Swazi Appli Lab SARL · données de démonstration</div>
+<header><h1>Portail Clients Sous-traitance</h1><p>Demandes d'intervention suivies · Kolwezi</p></header><section id=t0 class=on><h2>Nouvelle demande</h2><form data-add="#dem" data-next="t1" data-msg="Demande enregistrée" data-pre="DI-"><label>Service</label><select data-sum><option>Maintenance usine</option><option>Transport du personnel</option><option>Garage engins</option><option>Fourniture EPI</option><option>Main-d'œuvre</option><option>Service traiteur</option><option>Génie civil</option></select>
+<label>Site</label><select><option>Site minier A — Kolwezi</option><option>Site minier B — Fungurume</option></select><label>Urgence</label><div class=chips><button type=button>Normale</button><button type=button class=sel>Haute</button><button type=button>Arrêt production</button></div>
+<label>Description</label><textarea rows=3>Remplacement des roulements du convoyeur C3.</textarea><label>Photo / pièce jointe</label><input type=file><button class=btn>Envoyer</button></form></section><section id=t1><h2>Mes demandes</h2><div class=chips data-f="#dem"><button class=sel>Tous</button><button>En cours</button><button>Terminée</button></div><div id=dem style="margin-top:10px">
+<div class=card data-s="En cours"><div class=row><b>DI-1038 Maintenance usine</b><span class="badge b-w">En cours</span></div><div class=muted>Convoyeur C3 · technicien assigné</div></div>
+<div class=card data-s="En cours"><div class=row><b>DI-1035 Fourniture EPI</b><span class=badge>Devis envoyé</span></div><div class=muted>120 casques, 120 paires de bottes</div></div>
+<div class=card data-s="Terminée"><div class=row><b>DI-1029 Transport personnel</b><span class="badge b-ok">Terminée</span></div><div class=muted>Rotation équipe de nuit</div></div></div><button class=btn data-go=t2>Voir DI-1038</button></section><section id=t2><h2>DI-1038 · Convoyeur C3</h2><div class=tl><div class=done>Demande reçue — 08:05</div><div class=done>Technicien assigné : Ir. K. — 08:20</div><div class=done>Arrivée sur site — 10:15</div><div>Rapport + photos</div><div>Bon de fin de travaux à valider</div></div>
+<form data-msg="Bon de fin de travaux validé" data-pre="BFT-"><button class=btn>Valider le bon de fin de travaux</button></form></section><section id=t3><h2>Tableau de bord direction</h2><div class=kpis><div class=kpi><b>27</b>Demandes ouvertes</div><div class=kpi><b>6 h</b>Délai moyen</div><div class=kpi><b>9</b>Devis en attente</div><div class=kpi><b>3</b>Urgences</div></div>
+<h2 style="margin-top:14px">Par service</h2><div class=card>Maintenance<div class=bar><i style="width:75%"></i></div></div><div class=card>Transport personnel<div class=bar><i style="width:45%"></i></div></div><div class=card>EPI / traiteur<div class=bar><i style="width:30%"></i></div></div></section><nav><button data-t=t0 class=on><span>📝</span>Demande</button><button data-t=t1><span>📋</span>Mes demandes</button><button data-t=t2><span>🔧</span>Intervention</button><button data-t=t3><span>📊</span>Direction</button></nav><div class=toast></div></div><script>
+const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
+function go(t){$$('section').forEach(x=>x.classList.toggle('on',x.id==t));$$('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t==t));window.scrollTo(0,0)}
+$$('nav button').forEach(b=>b.onclick=()=>go(b.dataset.t));
+$$('[data-go]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.go)));
+function toast(m){const t=$('.toast');t.textContent=m;t.style.display='block';clearTimeout(window._t);window._t=setTimeout(()=>t.style.display='none',3200)}
+$$('.chips').forEach(c=>c.querySelectorAll('button').forEach(b=>b.onclick=()=>{if(!c.dataset.multi)c.querySelectorAll('button').forEach(x=>x.classList.remove('sel'));b.classList.toggle('sel');if(c.dataset.f){const v=b.textContent;$$(c.dataset.f+' .card').forEach(k=>k.style.display=(v=='Tous'||k.dataset.s==v)?'':'none')}}));
+let n=1042;
+$$('form').forEach(f=>f.onsubmit=e=>{e.preventDefault();n++;const ref=(f.dataset.pre||'REF-')+n;
+ if(f.dataset.add){const d=document.createElement('div');d.className='card';d.innerHTML='<div class=row><b>'+ref+'</b><span class="badge b-w">Nouvelle</span></div><div class=muted>'+(f.querySelector('[data-sum]')?f.querySelector('[data-sum]').value:'')+' · reçue à l\'instant</div>';$(f.dataset.add).prepend(d)}
+ if(f.dataset.pay){f.classList.add('hide');$(f.dataset.pay).classList.remove('hide');$$(f.dataset.pay+' .ref').forEach(x=>x.textContent=ref);}
+ else{toast((f.dataset.msg||'Enregistré')+' — n° '+ref);f.reset();if(f.dataset.next)setTimeout(()=>go(f.dataset.next),700)}});
+$$('.paynow').forEach(b=>b.onclick=()=>{const z=b.closest('.zola');const m=z.querySelector('.chips .sel');if(!m){toast('Choisissez un moyen de paiement');return}
+ z.querySelector('.payform').classList.add('hide');z.querySelector('.receipt').classList.remove('hide');z.querySelector('.via').textContent=m.textContent;toast('Paiement confirmé par Zola Money Trans')});
+</script></body></html>
