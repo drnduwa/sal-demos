@@ -1,0 +1,41 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Guest house & restaurant booking — prototype</title>
+<style>
+:root{--c:#15803d;--bg:#f5f6f8;--ink:#1d2330;--mut:#667085}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+.app{max-width:430px;margin:0 auto;min-height:100vh;background:#fff;position:relative;padding-bottom:76px}
+header{background:var(--c);color:#fff;padding:18px 18px 16px}
+header small{opacity:.85;font-size:12px;letter-spacing:.3px}header h1{margin:4px 0 0;font-size:20px}
+.badge{display:inline-block;background:rgba(255,255,255,.2);border-radius:20px;padding:2px 10px;font-size:11px;margin-top:8px}
+main{padding:16px}section{display:none}section.on{display:block}
+h2{font-size:17px;margin:4px 0 12px}h3{font-size:15px;margin:0 0 6px}
+.card{border:1px solid #e4e7ec;border-radius:14px;padding:14px;margin-bottom:12px;background:#fff}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.mut{color:var(--mut);font-size:13px}.price{font-weight:700;color:var(--c)}
+label{display:block;font-size:13px;margin:10px 0 4px;color:var(--mut)}
+input,select,textarea{width:100%;padding:11px;border:1px solid #d0d5dd;border-radius:10px;font:inherit;font-size:15px}
+button.b{width:100%;margin-top:14px;padding:13px;border:0;border-radius:12px;background:var(--c);color:#fff;font-size:15px;font-weight:600;cursor:pointer}
+.chip{display:inline-block;padding:8px 12px;border:1px solid #d0d5dd;border-radius:20px;margin:4px 4px 0 0;font-size:13px;cursor:pointer;background:#fff}
+.chip.sel{background:var(--c);color:#fff;border-color:var(--c)}.chip.off{opacity:.35;text-decoration:line-through;pointer-events:none}
+.ok{display:none;background:#ecfdf3;border:1px solid #abefc6;color:#067647;border-radius:12px;padding:12px;margin-top:12px;font-size:14px}
+.st{font-size:12px;padding:3px 9px;border-radius:12px;background:#eef2ff;color:#3538cd}
+.st.g{background:#ecfdf3;color:#067647}.st.o{background:#fffaeb;color:#b54708}
+.step{display:flex;gap:10px;margin:8px 0}.dot{width:12px;height:12px;border-radius:50%;background:#d0d5dd;margin-top:4px;flex:none}.dot.d{background:var(--c)}
+.chat{background:#e7f6ee;border-radius:14px;padding:10px}.msg{max-width:82%;padding:9px 12px;border-radius:12px;margin:6px 0;font-size:14px;line-height:1.35}
+.in{background:#fff}.outm{background:#d9fdd3;margin-left:auto}
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;display:flex;background:#fff;border-top:1px solid #e4e7ec}
+nav button{flex:1;border:0;background:none;padding:10px 2px 12px;font-size:11px;color:var(--mut);cursor:pointer}
+nav button span{display:block;font-size:19px}nav button.on{color:var(--c);font-weight:600}
+.foot{text-align:center;font-size:11px;color:var(--mut);padding:8px 0 4px}
+</style></head><body><div class="app">
+<header><small>Malkerns · rooms, restaurant & events</small><h1>Stay, eat, celebrate</h1><span class="badge">Prototype — Jaekerna Investments · demo data</span></header>
+<main><section><h2>Book a room</h2><form data-msg="Room booking {REF} held. Pay the deposit by card or mobile money to confirm."><label>Room</label><select><option>Garden double — E950</option><option>Family room — E1,350</option></select><label>Check-in</label><input type="date" value="2026-11-27"><label>Nights</label><div class="chips"><span class="chip">1</span><span class="chip">2</span><span class="chip">3</span></div><label>Availability</label><div class="chips"><span class="chip">27 Nov</span><span class="chip">28 Nov</span><span class="chip off">29 Nov</span></div><label>Name & WhatsApp</label><input required placeholder="Name, 76 000 000"><button class="b">Book & pay deposit</button><div class="ok"></div></form></section><section><h2>Reserve a table</h2><form data-msg="Table {REF} reserved. You will get a WhatsApp confirmation and a reminder on the day."><label>Date</label><input type="date" value="2026-11-14"><label>Time</label><div class="chips"><span class="chip">12:30</span><span class="chip">13:00</span><span class="chip">18:30</span><span class="chip off">19:00</span><span class="chip">19:30</span></div><label>Guests</label><div class="chips"><span class="chip">2</span><span class="chip">4</span><span class="chip">6</span><span class="chip">8+</span></div><label>Name & WhatsApp</label><input required placeholder="Name, 76 000 000"><label>Notes</label><textarea placeholder="Birthday, high chair, dietary needs"></textarea><button class="b">Reserve</button><div class="ok"></div></form></section><section><h2>Menu (always current)</h2><div class="card"><div class="row"><h3>Pub burger</h3><span class="price">E115</span></div><div class="mut">Demo item — owner edits prices from the phone</div></div><div class="card"><div class="row"><h3>Grilled trout</h3><span class="price">E165</span></div><div class="mut">Demo item</div></div><div class="card"><div class="row"><h3>Sunday lunch buffet</h3><span class="price">E220</span></div><div class="mut">Demo item</div></div><p class="mut">No more outdated PDF menus: staff update dishes and prices in one minute.</p></section><section><h2>Functions & festival season</h2><form data-msg="Event request {REF} received. The events team replies with a quote within 24 hours."><label>Event type</label><div class="chips"><span class="chip">Wedding</span><span class="chip">Corporate</span><span class="chip">Birthday</span><span class="chip">Festival group</span></div><label>Date</label><input type="date"><label>Guests</label><input placeholder="e.g. 60" required><label>Name & email</label><input required placeholder="Name, email"><button class="b">Request a quote</button><div class="ok"></div></form></section><div class="foot">Prototype by Jaekerna Investments (Pty) Ltd, Manzini · demo data only · WhatsApp 79 42 1083</div></main>
+<nav><button onclick="go(0)"><span>🛏️</span>Rooms</button><button onclick="go(1)"><span>🍽️</span>Table</button><button onclick="go(2)"><span>📖</span>Menu</button><button onclick="go(3)"><span>🎉</span>Events</button></nav></div>
+<script>
+function go(i){document.querySelectorAll('section').forEach((s,k)=>s.classList.toggle('on',k==i));document.querySelectorAll('nav button').forEach((b,k)=>b.classList.toggle('on',k==i));window.scrollTo(0,0)}
+document.querySelectorAll('.chips').forEach(g=>g.addEventListener('click',e=>{if(!e.target.classList.contains('chip'))return;g.querySelectorAll('.chip').forEach(c=>c.classList.remove('sel'));e.target.classList.add('sel')}));
+document.querySelectorAll('form').forEach(f=>f.addEventListener('submit',e=>{e.preventDefault();const o=f.querySelector('.ok');const ref='JK-'+Math.floor(10000+Math.random()*89999);o.innerHTML=(f.dataset.msg||'Request received.').replace('{REF}',ref);o.style.display='block'}));
+
+go(0);
+</script></body></html>
