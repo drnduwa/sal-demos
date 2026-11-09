@@ -1,0 +1,42 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Suivi des dossiers — prototype</title>
+<style>
+:root{--c:#1f5f8b;--bg:#f4f6f9;--ink:#1c2430;--mut:#6b7686}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:var(--c);color:#fff;padding:14px 16px 12px}header h1{font-size:17px;margin:0}header p{margin:3px 0 0;font-size:12px;opacity:.85}
+.badge{display:inline-block;background:rgba(255,255,255,.18);border-radius:10px;padding:2px 8px;font-size:11px;margin-top:6px}
+main{padding:12px 12px 90px;max-width:560px;margin:0 auto}
+.card{background:#fff;border-radius:12px;padding:12px 14px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.07)}
+.card h3{margin:0 0 4px;font-size:15px}.mut{color:var(--mut);font-size:12.5px}
+label{display:block;font-size:12.5px;color:var(--mut);margin:9px 0 3px}
+input,select,textarea{width:100%;padding:10px;border:1px solid #d5dbe3;border-radius:8px;font-size:14px;font-family:inherit;background:#fff}
+button{background:var(--c);color:#fff;border:0;border-radius:9px;padding:12px;font-size:14.5px;font-weight:600;width:100%;margin-top:12px;cursor:pointer}
+button.sec{background:#fff;color:var(--c);border:1.5px solid var(--c);width:auto;padding:7px 12px;font-size:13px;margin-top:8px}
+.st{display:inline-block;font-size:11.5px;padding:2px 8px;border-radius:9px;background:#eef1f5;color:#405064;font-weight:600}
+.st.ok{background:#e3f6ea;color:#16784a}.st.wait{background:#fff3dc;color:#9a6200}.st.alert{background:#fde7e7;color:#b42323}
+.bar{height:7px;background:#e7ebf0;border-radius:5px;margin-top:8px;overflow:hidden}.bar i{display:block;height:100%;background:var(--c)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tl{border-left:2px solid var(--c);margin-left:6px;padding-left:12px}.tl .card{position:relative}
+.tl .card:before{content:"";position:absolute;left:-19px;top:16px;width:10px;height:10px;border-radius:50%;background:var(--c)}
+nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;border-top:1px solid #e1e5ea;z-index:5}
+nav a{flex:1;text-align:center;padding:9px 2px 11px;font-size:11px;color:var(--mut);text-decoration:none;cursor:pointer}
+nav a b{display:block;font-size:19px;line-height:1.2}nav a.on{color:var(--c);font-weight:700}
+.scr{display:none}.scr.on{display:block}
+.toast{position:fixed;left:50%;top:16px;transform:translateX(-50%);background:#1c2430;color:#fff;padding:10px 16px;border-radius:9px;font-size:13.5px;display:none;z-index:9;max-width:90%}
+.pay{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px}.pay div{border:1.5px solid #d5dbe3;border-radius:9px;padding:10px;text-align:center;font-size:13px;cursor:pointer}.pay div.on{border-color:var(--c);background:#f3f6fb;font-weight:700}
+footer{text-align:center;font-size:11px;color:var(--mut);margin-top:14px}
+</style></head><body>
+<header><h1>Suivi des dossiers d&#x27;études et d&#x27;expertise</h1><p>Demande, suivi, rapports et attestations en ligne</p><span class="badge">Prototype — Swazi Appli Lab SARL · données de démonstration</span></header>
+<main><section class="scr on"><div class="card"><h3>Nouvelle demande</h3><div class="mut">Le client choisit le service et joint ses documents.</div></div><form class="card" onsubmit="return submitForm(this,'lst','DL')"><label>Service</label><select><option value="">— choisir —</option><option>Étude technique / plans</option><option>Métré et devis</option><option>Expertise immobilière</option><option>Construction / supervision</option><option>Installation électrique</option></select><label>Nom ou société</label><input type="text" placeholder="Ex. SARL Exemple"><label>Adresse du bien / du site</label><input type="text" placeholder="Ex. Likasi, av. …"><label>Documents (titre, plans)</label><input type="file" placeholder=""><label>Précisions</label><textarea rows="3" placeholder="Objet de l&#x27;expertise, délai…"></textarea><button type="submit">Envoyer la demande</button></form></section><section class="scr"><div class="card"><h3>Mes dossiers</h3><div class="mut">Statut en temps réel et ingénieur assigné.</div></div><div id="lst"><div class="card"><div class="row"><h3>DL-1038 · Expertise immobilière</h3><span class="st wait">Visite faite</span></div><div class="mut">Valorisation pour hypothèque · Ing. O. L.</div><div class="bar"><i style="width:55%"></i></div><div class="mut" style="margin-top:3px">55 %</div></div><div class="card"><div class="row"><h3>DL-1035 · Métré et devis</h3><span class="st ok">Rapport livré</span></div><div class="mut">Immeuble R+3 · Likasi</div><div class="bar"><i style="width:100%"></i></div><div class="mut" style="margin-top:3px">100 %</div></div><div class="card"><div class="row"><h3>DL-1031 · Supervision de chantier</h3><span class="st wait">En cours</span></div><div class="mut">Visite hebdomadaire</div><div class="bar"><i style="width:40%"></i></div><div class="mut" style="margin-top:3px">40 %</div></div></div></section><section class="scr"><div class="card"><h3>Avancement — DL-1031</h3><div class="mut">Photos datées et rapports téléchargeables, au lieu d&#x27;articles de blog.</div></div><div class="tl"><div class="card"><div class="row"><h3>Visite n°6 : élévation 3e niveau</h3><span class="mut">07/11</span></div><div class="mut">Rapport PDF · 6 photos</div></div><div class="card"><div class="row"><h3>Visite n°5 : dalle 2e niveau</h3><span class="mut">31/10</span></div><div class="mut">Écart de planning : 3 jours</div></div><div class="card"><div class="row"><h3>Visite n°4 : ferraillage</h3><span class="mut">24/10</span></div><div class="mut">Conforme</div></div></div></section><section class="scr"><div class="card"><h3>Attestations et historique</h3><div class="mut">Tous les rapports livrés au client, avec avis de satisfaction.</div></div><div class="card"><div class="row"><h3>Rapport d&#x27;expertise — parcelle 1204</h3><span class="st ok">Livré</span></div><div class="mut">PDF signé · 12 pages</div></div><div class="card"><div class="row"><h3>Attestation de bonne fin — métré R+3</h3><span class="st ok">Disponible</span></div><div class="mut">Téléchargeable</div></div><div class="card"><div class="row"><h3>Votre avis sur le dossier DL-1035</h3><span class="st wait">À donner</span></div><div class="mut">1 clic</div><button class="sec" onclick="approve(this)">★★★★★ Envoyer mon avis</button></div></section><footer>Prototype de démonstration réalisé par Swazi Appli Lab SARL pour DLLINE Company. Données fictives.</footer></main>
+<nav><a class="on" onclick="go(0)"><b>📝</b>Demande</a><a class="" onclick="go(1)"><b>⏱️</b>Suivi</a><a class="" onclick="go(2)"><b>📊</b>Rapports</a><a class="" onclick="go(3)"><b>🏅</b>Attestations</a></nav><div class="toast" id="toast"></div>
+<script>
+function go(i){document.querySelectorAll('.scr').forEach((s,j)=>s.classList.toggle('on',i==j));document.querySelectorAll('nav a').forEach((a,j)=>a.classList.toggle('on',i==j));window.scrollTo(0,0)}
+function toast(t){var e=document.getElementById('toast');e.textContent=t;e.style.display='block';setTimeout(()=>e.style.display='none',2600)}
+var n=1040;
+function submitForm(f,listId,prefix){var v=[...f.querySelectorAll('input,select,textarea')].map(x=>x.value).filter(Boolean);if(v.length<2){toast('Merci de remplir les champs');return false}
+n++;var ref=prefix+'-'+n;var l=document.getElementById(listId);if(l){var c=document.createElement('div');c.className='card';c.innerHTML='<div class="row"><h3>'+ref+'</h3><span class="st wait">Reçue</span></div><div class="mut">'+v.slice(0,2).join(' · ')+'</div><div class="bar"><i style="width:5%"></i></div>';l.prepend(c)}
+toast(prefix=='VERIF'?'Certificat authentique — valide jusqu\'au 14/03/2027 (démo)':prefix=='MES'?'Mesure enregistrée et transmise au client':'Demande enregistrée : '+ref);f.reset();return false}
+function approve(b){b.textContent='✓ Validé';b.disabled=true;b.style.opacity=.6;toast('Validation enregistrée')}
+function pm(d){d.parentNode.querySelectorAll('div').forEach(x=>x.classList.remove('on'));d.classList.add('on')}
+function pay(){var s=document.querySelector('.pay .on');if(!s){toast('Choisissez un moyen de paiement');return}toast('Paiement Zola Money Trans confirmé ('+s.textContent+') — reçu envoyé');var r=document.getElementById('payres');if(r)r.innerHTML='<span class="st ok">Payé via Zola Money Trans</span>'}
+</script></body></html>
