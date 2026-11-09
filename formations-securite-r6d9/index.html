@@ -1,0 +1,42 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Formations sécurité — prototype</title>
+<style>
+:root{--c:#c27c0e;--bg:#f4f6f9;--ink:#1c2430;--mut:#6b7686}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:var(--c);color:#fff;padding:14px 16px 12px}header h1{font-size:17px;margin:0}header p{margin:3px 0 0;font-size:12px;opacity:.85}
+.badge{display:inline-block;background:rgba(255,255,255,.18);border-radius:10px;padding:2px 8px;font-size:11px;margin-top:6px}
+main{padding:12px 12px 90px;max-width:560px;margin:0 auto}
+.card{background:#fff;border-radius:12px;padding:12px 14px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.07)}
+.card h3{margin:0 0 4px;font-size:15px}.mut{color:var(--mut);font-size:12.5px}
+label{display:block;font-size:12.5px;color:var(--mut);margin:9px 0 3px}
+input,select,textarea{width:100%;padding:10px;border:1px solid #d5dbe3;border-radius:8px;font-size:14px;font-family:inherit;background:#fff}
+button{background:var(--c);color:#fff;border:0;border-radius:9px;padding:12px;font-size:14.5px;font-weight:600;width:100%;margin-top:12px;cursor:pointer}
+button.sec{background:#fff;color:var(--c);border:1.5px solid var(--c);width:auto;padding:7px 12px;font-size:13px;margin-top:8px}
+.st{display:inline-block;font-size:11.5px;padding:2px 8px;border-radius:9px;background:#eef1f5;color:#405064;font-weight:600}
+.st.ok{background:#e3f6ea;color:#16784a}.st.wait{background:#fff3dc;color:#9a6200}.st.alert{background:#fde7e7;color:#b42323}
+.bar{height:7px;background:#e7ebf0;border-radius:5px;margin-top:8px;overflow:hidden}.bar i{display:block;height:100%;background:var(--c)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tl{border-left:2px solid var(--c);margin-left:6px;padding-left:12px}.tl .card{position:relative}
+.tl .card:before{content:"";position:absolute;left:-19px;top:16px;width:10px;height:10px;border-radius:50%;background:var(--c)}
+nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;border-top:1px solid #e1e5ea;z-index:5}
+nav a{flex:1;text-align:center;padding:9px 2px 11px;font-size:11px;color:var(--mut);text-decoration:none;cursor:pointer}
+nav a b{display:block;font-size:19px;line-height:1.2}nav a.on{color:var(--c);font-weight:700}
+.scr{display:none}.scr.on{display:block}
+.toast{position:fixed;left:50%;top:16px;transform:translateX(-50%);background:#1c2430;color:#fff;padding:10px 16px;border-radius:9px;font-size:13.5px;display:none;z-index:9;max-width:90%}
+.pay{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px}.pay div{border:1.5px solid #d5dbe3;border-radius:9px;padding:10px;text-align:center;font-size:13px;cursor:pointer}.pay div.on{border-color:var(--c);background:#f3f6fb;font-weight:700}
+footer{text-align:center;font-size:11px;color:var(--mut);margin-top:14px}
+</style></head><body>
+<header><h1>Réservation des formations sécurité</h1><p>Calendrier, places, paiement et certificats vérifiables</p><span class="badge">Prototype — Swazi Appli Lab SARL · données de démonstration</span></header>
+<main><section class="scr on"><div class="card"><h3>Prochaines sessions</h3><div class="mut">Dates, sites, prix et places restantes visibles par les entreprises.</div></div><div id="lst"><div class="card"><div class="row"><h3>Travail en hauteur — Lubumbashi</h3><span class="st ok">6 places</span></div><div class="mut">17–18 nov. · 180 $ / personne (démo)</div></div><div class="card"><div class="row"><h3>Élingage et levage — Kolwezi</h3><span class="st alert">2 places</span></div><div class="mut">24–26 nov. · 260 $ / personne (démo)</div></div><div class="card"><div class="row"><h3>Conduite défensive — Likasi</h3><span class="st ok">10 places</span></div><div class="mut">1er déc. · 120 $ / personne (démo)</div></div><div class="card"><div class="row"><h3>Marchandises dangereuses — Lubumbashi</h3><span class="st ">Complet</span></div><div class="mut">8–9 déc. · liste d&#x27;attente</div></div></div></section><section class="scr"><div class="card"><h3>Réserver des places</h3><div class="mut">Inscription de plusieurs travailleurs, puis paiement ou proforma.</div></div><div class="card"><div class="row"><h3>Travail en hauteur — 17/11</h3><b>3 × 180 $</b></div><div class="mut">K. Mbuyi, P. Ilunga, A. Kasongo</div></div><div class="card"><div class="row"><h3>Total</h3><b>540 $</b></div><div class="mut">Ou : télécharger une facture proforma pour l&#x27;entreprise</div></div><div class="card"><h3>Paiement Zola Money Trans</h3><div class="mut">Carte, M-Pesa, Orange Money, Airtel Money</div><div class="pay"><div onclick="pm(this)">Carte</div><div onclick="pm(this)">M-Pesa</div><div onclick="pm(this)">Orange Money</div><div onclick="pm(this)">Airtel Money</div></div><button onclick="pay()">Payer 540 $ et confirmer</button><div id="payres" style="margin-top:8px"></div></div></section><section class="scr"><div class="card"><h3>Espace entreprise</h3><div class="mut">Présences, résultats et dates d&#x27;expiration des certificats.</div></div><div id="lst"><div class="card"><div class="row"><h3>K. Mbuyi — Travail en hauteur</h3><span class="st ok">Valide</span></div><div class="mut">Expire le 14/03/2027</div></div><div class="card"><div class="row"><h3>J. Tshibanda — Élingage</h3><span class="st wait">Expire bientôt</span></div><div class="mut">Expire le 02/12/2026 · réinscrire</div></div><div class="card"><div class="row"><h3>M. Kalenga — Levage mobile</h3><span class="st alert">Expiré</span></div><div class="mut">Expiré le 30/09/2026</div></div></div></section><section class="scr"><div class="card"><h3>Vérifier un certificat</h3><div class="mut">Un superviseur de mine scanne le QR ou saisit le numéro.</div></div><form class="card" onsubmit="return submitForm(this,'none','VERIF')"><label>Numéro de certificat</label><input type="text" placeholder="DRS-2026-0451"><label>Nom du travailleur</label><input type="text" placeholder="Ex. K. Mbuyi"><button type="submit">Vérifier</button></form></section><footer>Prototype de démonstration réalisé par Swazi Appli Lab SARL pour DRS SARL. Données fictives.</footer></main>
+<nav><a class="on" onclick="go(0)"><b>📅</b>Calendrier</a><a class="" onclick="go(1)"><b>📝</b>Réserver</a><a class="" onclick="go(2)"><b>👷</b>Mes équipes</a><a class="" onclick="go(3)"><b>✅</b>Vérifier</a></nav><div class="toast" id="toast"></div>
+<script>
+function go(i){document.querySelectorAll('.scr').forEach((s,j)=>s.classList.toggle('on',i==j));document.querySelectorAll('nav a').forEach((a,j)=>a.classList.toggle('on',i==j));window.scrollTo(0,0)}
+function toast(t){var e=document.getElementById('toast');e.textContent=t;e.style.display='block';setTimeout(()=>e.style.display='none',2600)}
+var n=1040;
+function submitForm(f,listId,prefix){var v=[...f.querySelectorAll('input,select,textarea')].map(x=>x.value).filter(Boolean);if(v.length<2){toast('Merci de remplir les champs');return false}
+n++;var ref=prefix+'-'+n;var l=document.getElementById(listId);if(l){var c=document.createElement('div');c.className='card';c.innerHTML='<div class="row"><h3>'+ref+'</h3><span class="st wait">Reçue</span></div><div class="mut">'+v.slice(0,2).join(' · ')+'</div><div class="bar"><i style="width:5%"></i></div>';l.prepend(c)}
+toast(prefix=='VERIF'?'Certificat authentique — valide jusqu\'au 14/03/2027 (démo)':prefix=='MES'?'Mesure enregistrée et transmise au client':'Demande enregistrée : '+ref);f.reset();return false}
+function approve(b){b.textContent='✓ Validé';b.disabled=true;b.style.opacity=.6;toast('Validation enregistrée')}
+function pm(d){d.parentNode.querySelectorAll('div').forEach(x=>x.classList.remove('on'));d.classList.add('on')}
+function pay(){var s=document.querySelector('.pay .on');if(!s){toast('Choisissez un moyen de paiement');return}toast('Paiement Zola Money Trans confirmé ('+s.textContent+') — reçu envoyé');var r=document.getElementById('payres');if(r)r.innerHTML='<span class="st ok">Payé via Zola Money Trans</span>'}
+</script></body></html>
