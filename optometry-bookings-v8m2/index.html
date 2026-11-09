@@ -1,0 +1,41 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Eye-test booking assistant — prototype</title>
+<style>
+:root{--c:#0e7490;--bg:#f5f6f8;--ink:#1d2330;--mut:#667085}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+.app{max-width:430px;margin:0 auto;min-height:100vh;background:#fff;position:relative;padding-bottom:76px}
+header{background:var(--c);color:#fff;padding:18px 18px 16px}
+header small{opacity:.85;font-size:12px;letter-spacing:.3px}header h1{margin:4px 0 0;font-size:20px}
+.badge{display:inline-block;background:rgba(255,255,255,.2);border-radius:20px;padding:2px 10px;font-size:11px;margin-top:8px}
+main{padding:16px}section{display:none}section.on{display:block}
+h2{font-size:17px;margin:4px 0 12px}h3{font-size:15px;margin:0 0 6px}
+.card{border:1px solid #e4e7ec;border-radius:14px;padding:14px;margin-bottom:12px;background:#fff}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.mut{color:var(--mut);font-size:13px}.price{font-weight:700;color:var(--c)}
+label{display:block;font-size:13px;margin:10px 0 4px;color:var(--mut)}
+input,select,textarea{width:100%;padding:11px;border:1px solid #d0d5dd;border-radius:10px;font:inherit;font-size:15px}
+button.b{width:100%;margin-top:14px;padding:13px;border:0;border-radius:12px;background:var(--c);color:#fff;font-size:15px;font-weight:600;cursor:pointer}
+.chip{display:inline-block;padding:8px 12px;border:1px solid #d0d5dd;border-radius:20px;margin:4px 4px 0 0;font-size:13px;cursor:pointer;background:#fff}
+.chip.sel{background:var(--c);color:#fff;border-color:var(--c)}.chip.off{opacity:.35;text-decoration:line-through;pointer-events:none}
+.ok{display:none;background:#ecfdf3;border:1px solid #abefc6;color:#067647;border-radius:12px;padding:12px;margin-top:12px;font-size:14px}
+.st{font-size:12px;padding:3px 9px;border-radius:12px;background:#eef2ff;color:#3538cd}
+.st.g{background:#ecfdf3;color:#067647}.st.o{background:#fffaeb;color:#b54708}
+.step{display:flex;gap:10px;margin:8px 0}.dot{width:12px;height:12px;border-radius:50%;background:#d0d5dd;margin-top:4px;flex:none}.dot.d{background:var(--c)}
+.chat{background:#e7f6ee;border-radius:14px;padding:10px}.msg{max-width:82%;padding:9px 12px;border-radius:12px;margin:6px 0;font-size:14px;line-height:1.35}
+.in{background:#fff}.outm{background:#d9fdd3;margin-left:auto}
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;display:flex;background:#fff;border-top:1px solid #e4e7ec}
+nav button{flex:1;border:0;background:none;padding:10px 2px 12px;font-size:11px;color:var(--mut);cursor:pointer}
+nav button span{display:block;font-size:19px}nav button.on{color:var(--c);font-weight:600}
+.foot{text-align:center;font-size:11px;color:var(--mut);padding:8px 0 4px}
+</style></head><body><div class="app">
+<header><small>4 branches · WhatsApp + web booking</small><h1>Book an eye test</h1><span class="badge">Prototype — Jaekerna Investments · demo data</span></header>
+<main><section><h2>AI assistant on WhatsApp</h2><div class="chat"><div class="msg in">Hi, can I get an eye test this Saturday in Manzini?</div><div class="msg outm">Hello! 👋 The Hub Manzini has free slots on Sat 14 Nov: <b>09:00, 10:30, 11:15</b>. Which one suits you?</div><div class="msg in">10:30. Do you take medical aid?</div><div class="msg outm">Yes ✅ Please bring your medical aid card and ID. Booked: <b>Sat 14 Nov 10:30, The Hub Manzini</b>. Reply 1 to get a reminder the day before.</div><div class="msg in">1</div><div class="msg outm">Done — reminder set. See you Saturday!</div></div><p class="mut">Answers 24/7 in English and siSwati, books real slots, sends reminders, hands over to staff when needed.</p></section><section><h2>Book online</h2><form data-msg="Appointment {REF} confirmed. A WhatsApp reminder will be sent the day before."><label>Branch</label><div class="chips"><span class="chip">Mall Mbabane</span><span class="chip">The Hub Manzini</span><span class="chip">Gables Ezulwini</span><span class="chip">Matsapha</span></div><label>Service</label><select><option>Eye test</option><option>Contact lens fitting</option><option>Collect spectacles</option><option>Repair</option></select><label>Date</label><input type="date" value="2026-11-14"><label>Free slots</label><div class="chips"><span class="chip">08:30</span><span class="chip">09:00</span><span class="chip off">09:45</span><span class="chip">10:30</span><span class="chip">11:15</span><span class="chip off">14:00</span></div><label>Name</label><input required placeholder="Full name"><label>WhatsApp</label><input required placeholder="76 000 000"><label>Medical aid (optional)</label><input placeholder="Scheme & number"><button class="b">Confirm appointment</button><div class="ok"></div></form></section><section><h2>Track my spectacles</h2><div class="card"><div class="row"><h3>Order VC-2291</h3><span class="st o">In lab</span></div><div class="step"><div class="dot d"></div><div><b>Eye test done</b><div class="mut">10 Nov · The Hub Manzini</div></div></div><div class="step"><div class="dot d"></div><div><b>Lenses ordered</b><div class="mut">11 Nov</div></div></div><div class="step"><div class="dot d"></div><div><b>In the lab</b><div class="mut">ETA 16 Nov</div></div></div><div class="step"><div class="dot "></div><div><b>Ready for collection</b><div class="mut">WhatsApp alert sent</div></div></div></div></section><section><h2>Today across branches</h2><div class="card"><div class="row"><h3>Mall Mbabane</h3><span class="price">9 bookings</span></div><div class="mut">2 no-shows avoided by reminders</div></div><div class="card"><div class="row"><h3>The Hub Manzini</h3><span class="price">12 bookings</span></div><div class="mut">3 booked after hours via WhatsApp</div></div><div class="card"><div class="row"><h3>Gables Ezulwini</h3><span class="price">6 bookings</span></div><div class="mut">1 lens collection due</div></div><div class="card"><div class="row"><h3>Matsapha</h3><span class="price">5 bookings</span></div><div class="mut">Next free slot 11:15</div></div></section><div class="foot">Prototype by Jaekerna Investments (Pty) Ltd, Manzini · demo data only · WhatsApp 79 42 1083</div></main>
+<nav><button onclick="go(0)"><span>💬</span>WhatsApp</button><button onclick="go(1)"><span>📅</span>Book</button><button onclick="go(2)"><span>👓</span>Orders</button><button onclick="go(3)"><span>📊</span>Branches</button></nav></div>
+<script>
+function go(i){document.querySelectorAll('section').forEach((s,k)=>s.classList.toggle('on',k==i));document.querySelectorAll('nav button').forEach((b,k)=>b.classList.toggle('on',k==i));window.scrollTo(0,0)}
+document.querySelectorAll('.chips').forEach(g=>g.addEventListener('click',e=>{if(!e.target.classList.contains('chip'))return;g.querySelectorAll('.chip').forEach(c=>c.classList.remove('sel'));e.target.classList.add('sel')}));
+document.querySelectorAll('form').forEach(f=>f.addEventListener('submit',e=>{e.preventDefault();const o=f.querySelector('.ok');const ref='JK-'+Math.floor(10000+Math.random()*89999);o.innerHTML=(f.dataset.msg||'Request received.').replace('{REF}',ref);o.style.display='block'}));
+
+go(0);
+</script></body></html>
