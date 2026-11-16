@@ -1,0 +1,40 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Réservation des espaces — Prototype</title><style>
+:root{--c:#8a1c3b}*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f3f4f7;color:#1c2430}
+header{background:var(--c);color:#fff;padding:14px 16px}header b{font-size:17px}header small{display:block;opacity:.85;font-size:12px;margin-top:2px}
+.badge{display:inline-block;background:#fff3;border-radius:10px;padding:2px 8px;font-size:11px;margin-top:6px}
+main{padding:14px 14px 90px;max-width:520px;margin:auto}.scr{display:none}.scr.on{display:block}
+.card{background:#fff;border-radius:12px;padding:14px;margin-bottom:12px;box-shadow:0 1px 3px #0001}
+h2{font-size:16px;margin:4px 0 10px}h3{font-size:14px;margin:0 0 6px}.mut{color:#667;font-size:13px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px}.tag{font-size:11px;padding:3px 8px;border-radius:9px;background:#eef}
+.ok{background:#dcf5e6;color:#11673a}.wa{background:#fff2d6;color:#8a5a00}.no{background:#fde2e2;color:#9b1c1c}
+button,.btn{background:var(--c);color:#fff;border:0;border-radius:9px;padding:11px 14px;font-size:14px;width:100%;margin-top:8px;cursor:pointer}
+.chips{display:flex;flex-wrap:wrap;gap:6px}.chip{border:1px solid #ccd;border-radius:8px;padding:7px 9px;font-size:13px;background:#fff;cursor:pointer}
+.chip.sel{background:var(--c);color:#fff;border-color:var(--c)}.chip.off{opacity:.35;text-decoration:line-through;pointer-events:none}
+input,select,textarea{width:100%;padding:10px;border:1px solid #ccd;border-radius:8px;font-size:14px;margin:4px 0 8px;font-family:inherit}
+label{font-size:12px;color:#556}.big{font-size:22px;font-weight:bold}.step{display:flex;gap:10px;margin:8px 0}.dot{width:14px;height:14px;border-radius:50%;background:#ccd;flex:none;margin-top:2px}.dot.d{background:var(--c)}
+nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;border-top:1px solid #dde}nav a{flex:1;text-align:center;padding:9px 2px;font-size:11px;color:#667;text-decoration:none;cursor:pointer}nav a.on{color:var(--c);font-weight:bold}nav a span{display:block;font-size:19px}
+#toast{position:fixed;left:50%;bottom:80px;transform:translateX(-50%);background:#1c2430;color:#fff;padding:10px 16px;border-radius:9px;font-size:13px;display:none;max-width:90%}
+.zola{border:1px dashed var(--c);border-radius:10px;padding:10px;font-size:13px;margin-top:8px}.foot{font-size:11px;color:#889;text-align:center;margin-top:16px}
+table{width:100%;font-size:13px;border-collapse:collapse}td{padding:6px 2px;border-bottom:1px solid #eef}
+</style></head><body>
+<header><b>Réservation des espaces</b><small>Démo préparée pour Restaurant 19 Royal Event</small><span class="badge">Prototype — Swazi Appli Lab SARL · données de démonstration</span></header>
+<main><section class="scr on"><div class="card"><h2>Disponibilités — décembre 2026</h2><label>Espace</label><div class="chips" id="esp"><span class="chip sel" data-p="3000">Chapiteau · 500 pers.</span><span class="chip" data-p="2000">Espace Jardin</span><span class="chip" data-p="1000">Café</span></div>
+<label>Date</label><div class="chips" id="dt"><span class="chip off">Sam 5</span><span class="chip">Dim 6</span><span class="chip">Ven 11</span><span class="chip off">Sam 12</span><span class="chip sel">Sam 19</span><span class="chip">Dim 20</span><span class="chip off">Jeu 24</span><span class="chip">Sam 26</span></div>
+<p class="mut">Barré = déjà réservé. Le client voit tout de suite les dates libres.</p><button onclick="go(1)">Calculer mon devis</button></div></section><section class="scr"><div class="card"><h2>Devis instantané</h2><label>Nombre d'invités</label><input id="inv" type="number" value="250" oninput="calc()">
+<label>Formule buffet</label><select id="buf" onchange="calc()"><option value="55">Buffet Classique — 55 $/pers.</option><option value="75">Buffet Prestige — 75 $/pers.</option><option value="95">Buffet Royal — 95 $/pers.</option></select>
+<table><tr><td>Location espace</td><td id="l1" align="right"></td></tr><tr><td>Buffet</td><td id="l2" align="right"></td></tr><tr><td><b>Total</b></td><td id="tt" align="right"></td></tr><tr><td>Acompte 30 %</td><td id="ac" align="right"></td></tr></table>
+<button onclick="go(2)">Bloquer la date avec l'acompte</button></div></section><section class="scr"><div class="card"><h2>Acompte en ligne</h2><p class="mut">Réservation n° EV-2026-0412 · Sam 19 déc.</p><div class="big" id="ac2"></div><div class="zola"><b>Paiement Zola Money Trans</b><br>Carte · M-Pesa · Orange Money · Airtel Money</div>
+<form data-msg="Acompte reçu — date bloquée, reçu envoyé par WhatsApp" data-go="3"><label>Mode</label><select><option>M-Pesa</option><option>Orange Money</option><option>Airtel Money</option><option>Carte bancaire</option></select><label>Téléphone</label><input value="+243 81 000 0000"><button>Payer l'acompte</button></form></div></section><section class="scr"><div class="card"><h2>Tableau de bord gérant</h2><div class="row"><span>Réservations décembre</span><b>14</b></div><div class="row"><span>Acomptes encaissés</span><b>18 600 $</b></div><div class="row"><span>Soldes à recevoir</span><b>27 300 $</b></div></div>
+<div class="card"><h3>Prochains événements</h3><table><tr><td>Sam 12 · Chapiteau · Mariage</td><td><span class="tag ok">Payé</span></td></tr><tr><td>Sam 19 · Chapiteau · 250 pers.</td><td><span class="tag wa">Acompte</span></td></tr><tr><td>Jeu 24 · Jardin · Réveillon</td><td><span class="tag wa">Acompte</span></td></tr></table><button onclick="toast('Rappel de solde envoyé par WhatsApp')">Relancer les soldes</button></div></section><div class="foot">Prototype de démonstration réalisé par Swazi Appli Lab SARL — aucune donnée réelle.</div></main>
+<nav><a class="on" onclick="go(0)"><span>📅</span>Dates</a><a class="" onclick="go(1)"><span>🧾</span>Devis</a><a class="" onclick="go(2)"><span>💳</span>Acompte</a><a class="" onclick="go(3)"><span>📊</span>Gestion</a></nav><div id="toast"></div>
+<script>
+function go(i){document.querySelectorAll('.scr').forEach((s,k)=>s.classList.toggle('on',k==i));document.querySelectorAll('nav a').forEach((a,k)=>a.classList.toggle('on',k==i));window.scrollTo(0,0)}
+function toast(t){var e=document.getElementById('toast');e.textContent=t;e.style.display='block';clearTimeout(window._t);window._t=setTimeout(()=>e.style.display='none',2600)}
+document.querySelectorAll('.chips').forEach(g=>g.addEventListener('click',e=>{var c=e.target.closest('.chip');if(!c)return;g.querySelectorAll('.chip').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');if(window.onChip)onChip(g.id,c)}));
+document.querySelectorAll('form').forEach(f=>f.addEventListener('submit',e=>{e.preventDefault();toast(f.dataset.msg||'Envoyé');if(f.dataset.go)setTimeout(()=>go(+f.dataset.go),900)}));
+var esp=3000;window.onChip=function(id,c){if(id=='esp'){esp=+c.dataset.p;calc()}};
+function calc(){var n=+document.getElementById('inv').value||0,b=+document.getElementById('buf').value,t=esp+n*b,a=Math.round(t*.3);
+document.getElementById('l1').textContent=esp.toLocaleString('fr-FR')+' $';document.getElementById('l2').textContent=(n*b).toLocaleString('fr-FR')+' $';
+document.getElementById('tt').textContent=t.toLocaleString('fr-FR')+' $';document.getElementById('ac').textContent=a.toLocaleString('fr-FR')+' $';document.getElementById('ac2').textContent=a.toLocaleString('fr-FR')+' $'}calc();
+</script></body></html>
