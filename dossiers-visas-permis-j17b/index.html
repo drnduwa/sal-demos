@@ -1,0 +1,36 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Suivi des dossiers visas & permis — Prototype</title><style>
+:root{--c:#6a3fa0}*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f3f4f7;color:#1c2430}
+header{background:var(--c);color:#fff;padding:14px 16px}header b{font-size:17px}header small{display:block;opacity:.85;font-size:12px;margin-top:2px}
+.badge{display:inline-block;background:#fff3;border-radius:10px;padding:2px 8px;font-size:11px;margin-top:6px}
+main{padding:14px 14px 90px;max-width:520px;margin:auto}.scr{display:none}.scr.on{display:block}
+.card{background:#fff;border-radius:12px;padding:14px;margin-bottom:12px;box-shadow:0 1px 3px #0001}
+h2{font-size:16px;margin:4px 0 10px}h3{font-size:14px;margin:0 0 6px}.mut{color:#667;font-size:13px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px}.tag{font-size:11px;padding:3px 8px;border-radius:9px;background:#eef}
+.ok{background:#dcf5e6;color:#11673a}.wa{background:#fff2d6;color:#8a5a00}.no{background:#fde2e2;color:#9b1c1c}
+button,.btn{background:var(--c);color:#fff;border:0;border-radius:9px;padding:11px 14px;font-size:14px;width:100%;margin-top:8px;cursor:pointer}
+.chips{display:flex;flex-wrap:wrap;gap:6px}.chip{border:1px solid #ccd;border-radius:8px;padding:7px 9px;font-size:13px;background:#fff;cursor:pointer}
+.chip.sel{background:var(--c);color:#fff;border-color:var(--c)}.chip.off{opacity:.35;text-decoration:line-through;pointer-events:none}
+input,select,textarea{width:100%;padding:10px;border:1px solid #ccd;border-radius:8px;font-size:14px;margin:4px 0 8px;font-family:inherit}
+label{font-size:12px;color:#556}.big{font-size:22px;font-weight:bold}.step{display:flex;gap:10px;margin:8px 0}.dot{width:14px;height:14px;border-radius:50%;background:#ccd;flex:none;margin-top:2px}.dot.d{background:var(--c)}
+nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;border-top:1px solid #dde}nav a{flex:1;text-align:center;padding:9px 2px;font-size:11px;color:#667;text-decoration:none;cursor:pointer}nav a.on{color:var(--c);font-weight:bold}nav a span{display:block;font-size:19px}
+#toast{position:fixed;left:50%;bottom:80px;transform:translateX(-50%);background:#1c2430;color:#fff;padding:10px 16px;border-radius:9px;font-size:13px;display:none;max-width:90%}
+.zola{border:1px dashed var(--c);border-radius:10px;padding:10px;font-size:13px;margin-top:8px}.foot{font-size:11px;color:#889;text-align:center;margin-top:16px}
+table{width:100%;font-size:13px;border-collapse:collapse}td{padding:6px 2px;border-bottom:1px solid #eef}
+</style></head><body>
+<header><b>Suivi des dossiers visas & permis</b><small>Démo préparée pour Expatman</small><span class="badge">Prototype — Swazi Appli Lab SARL · données de démonstration</span></header>
+<main><section class="scr on"><div class="card"><h2>Nouvelle demande</h2><label>Service</label><select><option>Visa d'établissement de travail</option><option>Carte de travail pour étranger (CTE)</option><option>Visa volant / multiple entrées</option><option>Renouvellement</option></select>
+<label>Employé</label><input value="John Demo — ingénieur"><label>Pièces</label><input type="file"><p class="mut">Passeport, contrat, photos, attestation employeur</p>
+<form data-msg="Dossier VT-2026-0231 créé — numéro envoyé par e-mail et WhatsApp" data-go="1"><button>Créer le dossier</button></form></div></section><section class="scr"><div class="card"><h2>Suivi du dossier</h2><p class="mut">VT-2026-0231 · Visa d'établissement de travail</p>
+<div class="step"><div class="dot d"></div><div><b>Pièces reçues et vérifiées</b><br><span class="mut">16 nov.</span></div></div><div class="step"><div class="dot d"></div><div><b>Frais réglés</b><br><span class="mut">16 nov.</span></div></div><div class="step"><div class="dot d"></div><div><b>Déposé auprès de l'administration</b><br><span class="mut">en cours</span></div></div><div class="step"><div class="dot"></div><div><b>Visa délivré</b><br><span class="mut">estimation 3 déc.</span></div></div>
+<button onclick="toast('Alerte activée : vous serez notifié à chaque étape')">Recevoir les alertes WhatsApp</button></div></section><section class="scr"><div class="card"><h2>Paiement des frais</h2><table><tr><td>Frais de service</td><td align="right">350 $</td></tr><tr><td>Frais administratifs (démo)</td><td align="right">450 $</td></tr><tr><td><b>Total</b></td><td align="right"><b>800 $</b></td></tr></table><div class="zola"><b>Paiement Zola Money Trans</b><br>Carte · M-Pesa · Orange Money · Airtel Money</div>
+<form data-msg="Paiement reçu — reçu PDF disponible" data-go="1"><label>Mode</label><select><option>Carte bancaire</option><option>M-Pesa</option><option>Orange Money</option><option>Airtel Money</option></select><button>Payer 800 $</button></form></div></section><section class="scr"><div class="card"><h2>Tableau de bord</h2><div class="row"><span>Dossiers actifs</span><b>58</b></div><div class="row"><span>Pièces manquantes</span><b>9</b></div><div class="row"><span>Expirations sous 60 jours</span><b>12</b></div></div>
+<div class="card"><h3>Expirations à venir</h3><table><tr><td>CTE · Société Démo A (4 employés)</td><td><span class="tag no">J-21</span></td></tr><tr><td>Visa · Société Démo B</td><td><span class="tag wa">J-45</span></td></tr></table><button onclick="toast('Proposition de renouvellement envoyée au client')">Proposer le renouvellement</button></div></section><div class="foot">Prototype de démonstration réalisé par Swazi Appli Lab SARL — aucune donnée réelle.</div></main>
+<nav><a class="on" onclick="go(0)"><span>📝</span>Demande</a><a class="" onclick="go(1)"><span>📂</span>Suivi</a><a class="" onclick="go(2)"><span>💳</span>Frais</a><a class="" onclick="go(3)"><span>📊</span>Gestion</a></nav><div id="toast"></div>
+<script>
+function go(i){document.querySelectorAll('.scr').forEach((s,k)=>s.classList.toggle('on',k==i));document.querySelectorAll('nav a').forEach((a,k)=>a.classList.toggle('on',k==i));window.scrollTo(0,0)}
+function toast(t){var e=document.getElementById('toast');e.textContent=t;e.style.display='block';clearTimeout(window._t);window._t=setTimeout(()=>e.style.display='none',2600)}
+document.querySelectorAll('.chips').forEach(g=>g.addEventListener('click',e=>{var c=e.target.closest('.chip');if(!c)return;g.querySelectorAll('.chip').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');if(window.onChip)onChip(g.id,c)}));
+document.querySelectorAll('form').forEach(f=>f.addEventListener('submit',e=>{e.preventDefault();toast(f.dataset.msg||'Envoyé');if(f.dataset.go)setTimeout(()=>go(+f.dataset.go),900)}));
+
+</script></body></html>
