@@ -1,0 +1,37 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Location de véhicules en ligne — Prototype</title><style>
+:root{--c:#0f7a5c}*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f3f4f7;color:#1c2430}
+header{background:var(--c);color:#fff;padding:14px 16px}header b{font-size:17px}header small{display:block;opacity:.85;font-size:12px;margin-top:2px}
+.badge{display:inline-block;background:#fff3;border-radius:10px;padding:2px 8px;font-size:11px;margin-top:6px}
+main{padding:14px 14px 90px;max-width:520px;margin:auto}.scr{display:none}.scr.on{display:block}
+.card{background:#fff;border-radius:12px;padding:14px;margin-bottom:12px;box-shadow:0 1px 3px #0001}
+h2{font-size:16px;margin:4px 0 10px}h3{font-size:14px;margin:0 0 6px}.mut{color:#667;font-size:13px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px}.tag{font-size:11px;padding:3px 8px;border-radius:9px;background:#eef}
+.ok{background:#dcf5e6;color:#11673a}.wa{background:#fff2d6;color:#8a5a00}.no{background:#fde2e2;color:#9b1c1c}
+button,.btn{background:var(--c);color:#fff;border:0;border-radius:9px;padding:11px 14px;font-size:14px;width:100%;margin-top:8px;cursor:pointer}
+.chips{display:flex;flex-wrap:wrap;gap:6px}.chip{border:1px solid #ccd;border-radius:8px;padding:7px 9px;font-size:13px;background:#fff;cursor:pointer}
+.chip.sel{background:var(--c);color:#fff;border-color:var(--c)}.chip.off{opacity:.35;text-decoration:line-through;pointer-events:none}
+input,select,textarea{width:100%;padding:10px;border:1px solid #ccd;border-radius:8px;font-size:14px;margin:4px 0 8px;font-family:inherit}
+label{font-size:12px;color:#556}.big{font-size:22px;font-weight:bold}.step{display:flex;gap:10px;margin:8px 0}.dot{width:14px;height:14px;border-radius:50%;background:#ccd;flex:none;margin-top:2px}.dot.d{background:var(--c)}
+nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;border-top:1px solid #dde}nav a{flex:1;text-align:center;padding:9px 2px;font-size:11px;color:#667;text-decoration:none;cursor:pointer}nav a.on{color:var(--c);font-weight:bold}nav a span{display:block;font-size:19px}
+#toast{position:fixed;left:50%;bottom:80px;transform:translateX(-50%);background:#1c2430;color:#fff;padding:10px 16px;border-radius:9px;font-size:13px;display:none;max-width:90%}
+.zola{border:1px dashed var(--c);border-radius:10px;padding:10px;font-size:13px;margin-top:8px}.foot{font-size:11px;color:#889;text-align:center;margin-top:16px}
+table{width:100%;font-size:13px;border-collapse:collapse}td{padding:6px 2px;border-bottom:1px solid #eef}
+</style></head><body>
+<header><b>Location de véhicules en ligne</b><small>Démo préparée pour AMW Location Véhicule</small><span class="badge">Prototype — Swazi Appli Lab SARL · données de démonstration</span></header>
+<main><section class="scr on"><div class="card"><h2>Nos véhicules</h2>
+<div class="row"><div><b>Toyota Corolla</b><br><span class="mut">Berline · 5 places</span></div><div><b>45 $/j</b><br><span class="tag ok">Libre</span></div></div><hr>
+<div class="row"><div><b>Toyota Prado</b><br><span class="mut">4x4 · 7 places</span></div><div><b>120 $/j</b><br><span class="tag ok">Libre</span></div></div><hr>
+<div class="row"><div><b>Toyota Hiace</b><br><span class="mut">Minibus · 15 places</span></div><div><b>150 $/j</b><br><span class="tag no">Loué</span></div></div><button onclick="go(1)">Réserver le Prado</button></div></section><section class="scr"><div class="card"><h2>Disponibilités — Toyota Prado</h2><label>Début</label><div class="chips" id="d1"><span class="chip off">Lun 23</span><span class="chip sel">Mar 24</span><span class="chip">Mer 25</span><span class="chip">Jeu 26</span></div>
+<label>Nombre de jours</label><input id="nj" type="number" value="3" oninput="cv()"><label>Chauffeur</label><select id="ch" onchange="cv()"><option value="0">Sans chauffeur</option><option value="30">Avec chauffeur (+30 $/j)</option></select>
+<table><tr><td>Location</td><td id="v1" align="right"></td></tr><tr><td>Caution remboursable</td><td align="right">300 $</td></tr><tr><td><b>À payer maintenant</b></td><td id="v2" align="right"></td></tr></table><button onclick="go(2)">Continuer</button></div></section><section class="scr"><div class="card"><h2>Confirmation & caution</h2><p class="mut">Réservation LV-2026-0907 · Prado · 24–26 nov.</p><div class="big" id="v3"></div><div class="zola"><b>Paiement Zola Money Trans</b><br>Carte · M-Pesa · Orange Money · Airtel Money</div>
+<form data-msg="Réservation confirmée — bon de location envoyé par WhatsApp" data-go="3"><label>Mode</label><select><option>M-Pesa</option><option>Orange Money</option><option>Airtel Money</option><option>Carte bancaire</option></select><button>Payer et confirmer</button></form></div></section><section class="scr"><div class="card"><h2>Suivi des locations</h2><table><tr><td>Prado · LV-0907</td><td><span class="tag ok">Confirmé</span></td></tr><tr><td>Corolla · LV-0901</td><td><span class="tag wa">En cours</span></td></tr><tr><td>Hiace · LV-0895</td><td><span class="tag no">Retard 2 h</span></td></tr></table></div>
+<div class="card"><h3>Pénalités de retard</h3><div class="row"><span>Hiace · 2 h × 10 $</span><b>20 $</b></div><button onclick="toast('Lien de paiement envoyé au client')">Envoyer le lien de paiement</button></div></section><div class="foot">Prototype de démonstration réalisé par Swazi Appli Lab SARL — aucune donnée réelle.</div></main>
+<nav><a class="on" onclick="go(0)"><span>🚙</span>Véhicules</a><a class="" onclick="go(1)"><span>📅</span>Dates</a><a class="" onclick="go(2)"><span>💳</span>Payer</a><a class="" onclick="go(3)"><span>📊</span>Suivi</a></nav><div id="toast"></div>
+<script>
+function go(i){document.querySelectorAll('.scr').forEach((s,k)=>s.classList.toggle('on',k==i));document.querySelectorAll('nav a').forEach((a,k)=>a.classList.toggle('on',k==i));window.scrollTo(0,0)}
+function toast(t){var e=document.getElementById('toast');e.textContent=t;e.style.display='block';clearTimeout(window._t);window._t=setTimeout(()=>e.style.display='none',2600)}
+document.querySelectorAll('.chips').forEach(g=>g.addEventListener('click',e=>{var c=e.target.closest('.chip');if(!c)return;g.querySelectorAll('.chip').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');if(window.onChip)onChip(g.id,c)}));
+document.querySelectorAll('form').forEach(f=>f.addEventListener('submit',e=>{e.preventDefault();toast(f.dataset.msg||'Envoyé');if(f.dataset.go)setTimeout(()=>go(+f.dataset.go),900)}));
+function cv(){var n=+document.getElementById('nj').value||0,c=+document.getElementById('ch').value,l=n*(120+c);document.getElementById('v1').textContent=l+' $';document.getElementById('v2').textContent=(l+300)+' $';document.getElementById('v3').textContent=(l+300)+' $'}cv();
+</script></body></html>
