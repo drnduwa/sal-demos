@@ -1,0 +1,38 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Espace client du cabinet — Prototype</title><style>
+:root{--c:#1f3a5f}*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f3f4f7;color:#1c2430}
+header{background:var(--c);color:#fff;padding:14px 16px}header b{font-size:17px}header small{display:block;opacity:.85;font-size:12px;margin-top:2px}
+.badge{display:inline-block;background:#fff3;border-radius:10px;padding:2px 8px;font-size:11px;margin-top:6px}
+main{padding:14px 14px 90px;max-width:520px;margin:auto}.scr{display:none}.scr.on{display:block}
+.card{background:#fff;border-radius:12px;padding:14px;margin-bottom:12px;box-shadow:0 1px 3px #0001}
+h2{font-size:16px;margin:4px 0 10px}h3{font-size:14px;margin:0 0 6px}.mut{color:#667;font-size:13px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px}.tag{font-size:11px;padding:3px 8px;border-radius:9px;background:#eef}
+.ok{background:#dcf5e6;color:#11673a}.wa{background:#fff2d6;color:#8a5a00}.no{background:#fde2e2;color:#9b1c1c}
+button,.btn{background:var(--c);color:#fff;border:0;border-radius:9px;padding:11px 14px;font-size:14px;width:100%;margin-top:8px;cursor:pointer}
+.chips{display:flex;flex-wrap:wrap;gap:6px}.chip{border:1px solid #ccd;border-radius:8px;padding:7px 9px;font-size:13px;background:#fff;cursor:pointer}
+.chip.sel{background:var(--c);color:#fff;border-color:var(--c)}.chip.off{opacity:.35;text-decoration:line-through;pointer-events:none}
+input,select,textarea{width:100%;padding:10px;border:1px solid #ccd;border-radius:8px;font-size:14px;margin:4px 0 8px;font-family:inherit}
+label{font-size:12px;color:#556}.big{font-size:22px;font-weight:bold}.step{display:flex;gap:10px;margin:8px 0}.dot{width:14px;height:14px;border-radius:50%;background:#ccd;flex:none;margin-top:2px}.dot.d{background:var(--c)}
+nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;border-top:1px solid #dde}nav a{flex:1;text-align:center;padding:9px 2px;font-size:11px;color:#667;text-decoration:none;cursor:pointer}nav a.on{color:var(--c);font-weight:bold}nav a span{display:block;font-size:19px}
+#toast{position:fixed;left:50%;bottom:80px;transform:translateX(-50%);background:#1c2430;color:#fff;padding:10px 16px;border-radius:9px;font-size:13px;display:none;max-width:90%}
+.zola{border:1px dashed var(--c);border-radius:10px;padding:10px;font-size:13px;margin-top:8px}.foot{font-size:11px;color:#889;text-align:center;margin-top:16px}
+table{width:100%;font-size:13px;border-collapse:collapse}td{padding:6px 2px;border-bottom:1px solid #eef}
+</style></head><body>
+<header><b>Espace client du cabinet</b><small>Démo préparée pour Kalema Legal & Associates</small><span class="badge">Prototype — Swazi Appli Lab SARL · données de démonstration</span></header>
+<main><section class="scr on"><div class="card"><h2>Prendre rendez-vous</h2><label>Domaine</label><select><option>Droit minier</option><option>Droit des sociétés / OHADA</option><option>Fiscalité</option><option>Contentieux & arbitrage</option></select>
+<label>Avocat</label><div class="chips" id="av"><span class="chip sel">Associé principal</span><span class="chip">Avocat senior</span><span class="chip">Premier disponible</span></div>
+<label>Créneaux libres — mardi 24 nov.</label><div class="chips" id="cr"><span class="chip off">09:00</span><span class="chip">10:30</span><span class="chip sel">14:00</span><span class="chip">15:30</span><span class="chip off">17:00</span></div>
+<form data-msg="Rendez-vous confirmé — rappel la veille par WhatsApp" data-go="2"><label>Société</label><input value="Société Démo SARL"><button>Confirmer le rendez-vous</button></form></div></section><section class="scr"><div class="card"><h2>Dépôt de pièces</h2><p class="mut">Dossier JUR-2026-118 · Constitution de société</p>
+<div class="row"><span>Statuts signés.pdf</span><span class="tag ok">Reçu</span></div><div class="row"><span>Pièces d'identité associés</span><span class="tag ok">Reçu</span></div><div class="row"><span>Preuve de libération du capital</span><span class="tag no">Manquant</span></div>
+<form data-msg="Document déposé — l'avocat est notifié"><label>Ajouter un document</label><input type="file"><button>Déposer</button></form></div></section><section class="scr"><div class="card"><h2>Suivi du dossier</h2><p class="mut">JUR-2026-118 · Constitution de société</p>
+<div class="step"><div class="dot d"></div><div><b>Consultation initiale</b><br><span class="mut">12 nov.</span></div></div><div class="step"><div class="dot d"></div><div><b>Rédaction des statuts</b><br><span class="mut">16 nov.</span></div></div><div class="step"><div class="dot d"></div><div><b>Dépôt au guichet unique</b><br><span class="mut">en cours</span></div></div><div class="step"><div class="dot"></div><div><b>RCCM / Id. nationale</b><br><span class="mut">prévu 2 déc.</span></div></div>
+<button onclick="toast('Message envoyé à votre avocat')">Écrire à mon avocat</button></div></section><section class="scr"><div class="card"><h2>Tableau de bord associés</h2><div class="row"><span>Rendez-vous cette semaine</span><b>11</b></div><div class="row"><span>Dossiers actifs</span><b>37</b></div><div class="row"><span>Pièces en attente client</span><b>6</b></div></div>
+<div class="card"><h3>Échéances</h3><table><tr><td>Mémoire — arbitrage CCJA</td><td><span class="tag no">J-3</span></td></tr><tr><td>Déclaration fiscale client</td><td><span class="tag wa">J-9</span></td></tr><tr><td>Renouvellement permis</td><td><span class="tag ok">J-30</span></td></tr></table><button onclick="toast('Relance automatique envoyée aux clients')">Relancer les pièces manquantes</button></div></section><div class="foot">Prototype de démonstration réalisé par Swazi Appli Lab SARL — aucune donnée réelle.</div></main>
+<nav><a class="on" onclick="go(0)"><span>📅</span>RDV</a><a class="" onclick="go(1)"><span>📎</span>Pièces</a><a class="" onclick="go(2)"><span>📂</span>Dossier</a><a class="" onclick="go(3)"><span>📊</span>Associés</a></nav><div id="toast"></div>
+<script>
+function go(i){document.querySelectorAll('.scr').forEach((s,k)=>s.classList.toggle('on',k==i));document.querySelectorAll('nav a').forEach((a,k)=>a.classList.toggle('on',k==i));window.scrollTo(0,0)}
+function toast(t){var e=document.getElementById('toast');e.textContent=t;e.style.display='block';clearTimeout(window._t);window._t=setTimeout(()=>e.style.display='none',2600)}
+document.querySelectorAll('.chips').forEach(g=>g.addEventListener('click',e=>{var c=e.target.closest('.chip');if(!c)return;g.querySelectorAll('.chip').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');if(window.onChip)onChip(g.id,c)}));
+document.querySelectorAll('form').forEach(f=>f.addEventListener('submit',e=>{e.preventDefault();toast(f.dataset.msg||'Envoyé');if(f.dataset.go)setTimeout(()=>go(+f.dataset.go),900)}));
+
+</script></body></html>
