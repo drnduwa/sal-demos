@@ -1,0 +1,44 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rendez-vous ophtalmologie 3 sites — prototype</title><style>
+:root{--c:#1d4ed8;--bg:#f5f7f8;--ink:#17202a;--mut:#5d6b78}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink);padding-bottom:72px}
+header{background:var(--c);color:#fff;padding:14px 16px}header h1{font-size:18px;margin:0}header p{margin:2px 0 0;font-size:12px;opacity:.85}
+.tag{background:#fff3;border-radius:10px;padding:2px 8px;font-size:11px;display:inline-block;margin-top:6px}
+main{padding:14px 16px}.scr{display:none}.scr.on{display:block}
+.card{background:#fff;border-radius:12px;padding:12px;margin-bottom:10px;box-shadow:0 1px 3px #0001}
+.card h3{margin:0 0 4px;font-size:15px}.mut{color:var(--mut);font-size:13px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.btn{background:var(--c);color:#fff;border:0;border-radius:10px;padding:10px 14px;font-size:14px;font-weight:600;cursor:pointer}
+.btn.o{background:#fff;color:var(--c);border:1.5px solid var(--c)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.chip{border:1.5px solid #cfd8dc;border-radius:16px;padding:6px 10px;font-size:13px;background:#fff;cursor:pointer}
+.chip.sel{background:var(--c);color:#fff;border-color:var(--c)}
+select,input{width:100%;padding:10px;border:1px solid #cfd8dc;border-radius:8px;font-size:14px;margin:4px 0 8px;background:#fff}
+label{font-size:13px;font-weight:600}
+.badge{font-size:11px;padding:3px 8px;border-radius:10px;background:#e8f5e9;color:#2e7d32;font-weight:600}.badge.w{background:#fff8e1;color:#a66b00}
+nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;border-top:1px solid #dde3e6}
+nav button{flex:1;border:0;background:none;padding:8px 2px 10px;font-size:11px;color:var(--mut);cursor:pointer}nav button b{display:block;font-size:18px}
+nav button.on{color:var(--c);font-weight:700}
+.toast{position:fixed;left:16px;right:16px;bottom:84px;background:#17202a;color:#fff;padding:12px;border-radius:10px;font-size:14px;display:none}
+.pay{display:grid;grid-template-columns:1fr 1fr;gap:8px}.pay .chip{text-align:center}
+footer{text-align:center;font-size:11px;color:var(--mut);padding:8px}
+</style></head><body>
+<header><h1>Rendez-vous & résultats en ligne</h1><p>Centre ophtalmologique · Kinshasa & Matadi</p><span class="tag">Prototype — Swazi Appli Lab SARL · données de démonstration</span></header>
+<main><section class="scr"><h2 style="font-size:16px">Prendre rendez-vous</h2><div class="card"><label>Site</label><div class="chips"><span class="chip sel" onclick="pick(this)">Gombe — Tombalbaye</span><span class="chip" onclick="pick(this)">Matrix Tower</span><span class="chip" onclick="pick(this)">Matadi</span></div>
+<label>Spécialité</label><select><option>Consultation ophtalmologie</option><option>Contrôle de la vue / lunettes</option><option>Médecine générale</option><option>Examen de laboratoire</option></select>
+<label>Médecin</label><select><option>Premier médecin disponible</option><option>Dr A. (ophtalmologue — démo)</option><option>Dr B. (ophtalmologue — démo)</option></select>
+<label>Créneaux libres — jeu 20 nov</label><div class="chips"><span class="chip" onclick="pick(this)">08:30</span><span class="chip sel" onclick="pick(this)">09:15</span><span class="chip" onclick="pick(this)">11:00</span><span class="chip" onclick="pick(this)">15:30</span></div>
+<label>Patient</label><input value="Mme Mbuyi (démo)"><button class="btn" style="width:100%" onclick="toast('RDV confirmé : jeu 20 nov 09:15, Gombe. SMS de rappel la veille.');go(1)">Confirmer</button></div></section><section class="scr"><h2 style="font-size:16px">Mes rendez-vous</h2><div class="card"><div class="row"><h3>Ophtalmologie — Gombe</h3><span class="badge">Confirmé</span></div><div class="mut">Jeu 20 nov · 09:15 · rappel SMS/WhatsApp la veille</div><div class="row" style="margin-top:8px"><button class="btn o" onclick="toast('Choisissez un nouveau créneau (démo).');go(0)">Reporter</button><button class="btn o" onclick="toast('Rendez-vous annulé (démo).')">Annuler</button></div></div>
+<div class="card"><div class="row"><h3>Contrôle lunettes — Matadi</h3><span class="badge w">Passé</span></div><div class="mut">12 oct · ordonnance disponible</div></div>
+<div class="card"><h3>Côté clinique</h3><div class="mut">Agenda des 3 sites en un seul écran · 46 RDV aujourd'hui · 4 absences évitées par rappel</div></div></section><section class="scr"><h2 style="font-size:16px">Résultats de laboratoire</h2><div class="card"><label>Code patient</label><input value="LV-24817"><label>Date de naissance</label><input value="12/03/1985"><button class="btn" style="width:100%" onclick="document.getElementById('res').style.display='block'">Voir mes résultats</button></div>
+<div id="res" style="display:none"><div class="card"><div class="row"><h3>Glycémie à jeun</h3><span class="badge">Disponible</span></div><div class="mut">Prélevé le 17 nov · PDF signé</div><button class="btn o" style="margin-top:8px" onclick="toast('PDF téléchargé (démo).')">Télécharger</button></div>
+<div class="card"><div class="row"><h3>Bilan lipidique</h3><span class="badge w">En cours</span></div><div class="mut">Prévu le 19 nov · notification à la sortie</div></div></div></section><section class="scr"><h2 style="font-size:16px">Tarifs & paiement</h2><div class="card"><div class="row"><span>Consultation ophtalmologie</span><b>40 $</b></div><div class="row"><span>Contrôle de la vue</span><b>25 $</b></div><div class="row"><span>Médecine générale</span><b>20 $</b></div><p class="mut">Tarifs de démonstration.</p></div>
+<div class="card"><h3>Payer la consultation du 20 nov</h3><label>Paiement Zola Money Trans</label><div class="pay chips"><span class="chip sel" onclick="pick(this)">Carte</span><span class="chip" onclick="pick(this)">M-Pesa</span><span class="chip" onclick="pick(this)">Orange Money</span><span class="chip" onclick="pick(this)">Airtel Money</span></div>
+<button class="btn" style="width:100%" onclick="toast('Paiement Zola (démo) reçu : 40 $. Reçu envoyé par SMS.')">Payer 40 $</button><p class="mut">Démonstration : aucun paiement réel n'est effectué.</p></div></section><footer>Prototype de démonstration — ne traite aucune donnée réelle.</footer></main>
+<nav><button onclick="go(0)"><b>📅</b>RDV</button><button onclick="go(1)"><b>🔔</b>Mes RDV</button><button onclick="go(2)"><b>🧪</b>Résultats</button><button onclick="go(3)"><b>💳</b>Payer</button></nav><div class="toast" id="t"></div>
+<script>
+function go(i){document.querySelectorAll('.scr').forEach((s,k)=>s.classList.toggle('on',k==i));document.querySelectorAll('nav button').forEach((b,k)=>b.classList.toggle('on',k==i));scrollTo(0,0)}
+function toast(m){var t=document.getElementById('t');t.textContent=m;t.style.display='block';clearTimeout(window._t);window._t=setTimeout(()=>t.style.display='none',2600)}
+function pick(el){el.parentNode.querySelectorAll('.chip').forEach(c=>c.classList.remove('sel'));el.classList.add('sel')}
+
+go(0)
+</script></body></html>
